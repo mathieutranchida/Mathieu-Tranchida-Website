@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Store = () => {
+const Shop = () => {
   return (
     <>
-      <Wrapper>Store</Wrapper>
+      <Wrapper>Shop</Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div``;
 
-export default Store;
+export default Shop;

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Header from "./components/header/index";
 import Homepage from "./components/homepage/index";
 import Blog from "./components/blog/index";
-import Store from "./components/store/index";
+import Shop from "./components/shop/index";
 import Footer from "./components/footer/index";
 import Rates from "./components/rates/index";
 import Testimonies from "./components/testimonies/index";
@@ -29,7 +29,7 @@ const App = () => {
               <Blog />
             </Route>
             <Route to="/store">
-              <Store />
+              <Shop />
             </Route>
             <Route to="/testimonies">
               <Testimonies />

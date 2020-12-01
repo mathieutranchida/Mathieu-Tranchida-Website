@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import history from "../../history";
+// import history from "../../history";
 
 const TestimoniesDesktop = () => {
   return (
