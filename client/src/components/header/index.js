@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import COLORS from "../../constants";
-import logo from "../../assets/logo.png";
+// import logo from "../../assets/logo.png";
 
 const Header = () => {
   return (
     <>
       <Wrapper>
-        <Logo src={logo} alt="Mathieu Tranchida's logo" />
+        {/* <Logo src={logo} alt="Mathieu Tranchida's logo" /> */}
         <Nav>
           <Link exact to="/">
             Portfolio
@@ -25,12 +25,12 @@ const Header = () => {
 
 const Wrapper = styled.div``;
 
-const Logo = styled.img`
-  height: 65px;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-`;
+// const Logo = styled.img`
+//   height: 65px;
+//   position: absolute;
+//   top: 20px;
+//   left: 20px;
+// `;
 
 const Nav = styled.nav`
   position: absolute;

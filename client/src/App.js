@@ -10,6 +10,8 @@ import Shop from "./components/shop/index";
 import Footer from "./components/footer/index";
 import Rates from "./components/rates/index";
 import Testimonies from "./components/testimonies/index";
+import Login from "./components/login/index";
+import CreateAccount from "./components/login/CreateAccount";
 
 const App = () => {
   return (
@@ -22,17 +24,23 @@ const App = () => {
             <Route exact path="/">
               <Homepage />
             </Route>
-            <Route to="/rates">
+            <Route path="/rates">
               <Rates />
             </Route>
-            <Route to="/blog">
+            <Route path="/blog">
               <Blog />
             </Route>
-            <Route to="/store">
+            <Route path="/store">
               <Shop />
             </Route>
-            <Route to="/testimonies">
+            <Route path="/testimonies">
               <Testimonies />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/create-account">
+              <CreateAccount />
             </Route>
           </Switch>
           <Footer />
