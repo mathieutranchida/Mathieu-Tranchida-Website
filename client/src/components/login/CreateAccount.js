@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import {
@@ -14,8 +15,10 @@ import COLORS from "../../constants";
 
 const CreateAccount = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const newUser = useSelector((state) => state.createUserReducer);
+  console.log(newUser);
 
   return (
     <>
@@ -87,7 +90,13 @@ const CreateAccount = () => {
             </InputRadioDiv>
           </InputForm>
           <ButtonWrapper>
-            <Button>Sign up</Button>
+            <Button
+              onClick={(ev) => {
+                history.push("/login");
+              }}
+            >
+              Sign up
+            </Button>
           </ButtonWrapper>
         </Wrapper>
       </Main>

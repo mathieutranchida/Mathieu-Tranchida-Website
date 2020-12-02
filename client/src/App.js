@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import styled from "styled-components";
 
+// User interface
 import Header from "./components/header/index";
 import Homepage from "./components/homepage/index";
 import Blog from "./components/blog/index";
@@ -12,6 +13,20 @@ import Rates from "./components/rates/index";
 import Testimonies from "./components/testimonies/index";
 import Login from "./components/login/index";
 import CreateAccount from "./components/login/CreateAccount";
+
+// Admin interface
+import Admin from "./components/admin/index";
+// Orders
+import AllOrders from "./components/admin/adminPages/orders/AllOrders";
+// Price list
+import AddPriceList from "./components/admin/adminPages/priceList/AddPriceList";
+import AllPriceLists from "./components/admin/adminPages/priceList/AllPriceLists";
+// Products
+import AddProduct from "./components/admin/adminPages/products/AddProduct";
+import AllProducts from "./components/admin/adminPages/products/AllProducts";
+// User
+import AddUser from "./components/admin/adminPages/users/AddUser";
+import AllUsers from "./components/admin/adminPages/users/AllUsers";
 
 const App = () => {
   return (
@@ -41,6 +56,40 @@ const App = () => {
             </Route>
             <Route path="/create-account">
               <CreateAccount />
+            </Route>
+
+            {/* -----------------------ADMIN------------------------- */}
+            <Route exact path="/admin">
+              <Admin />
+            </Route>
+
+            {/* -----------------------Orders------------------------- */}
+            <Route path="/admin/all-orders">
+              <AllOrders />
+            </Route>
+
+            {/* -----------------------Price list------------------------- */}
+            <Route path="/admin/all-price-lists">
+              <AllPriceLists />
+            </Route>
+            <Route path="/admin/add-price-list">
+              <AddPriceList />
+            </Route>
+
+            {/* -----------------------Products------------------------- */}
+            <Route path="/admin/all-products">
+              <AllProducts />
+            </Route>
+            <Route path="/admin/add-product">
+              <AddProduct />
+            </Route>
+
+            {/* -----------------------Users------------------------- */}
+            <Route path="/admin/all-users">
+              <AllUsers />
+            </Route>
+            <Route path="/admin/add-user">
+              <AddUser />
             </Route>
           </Switch>
           <Footer />

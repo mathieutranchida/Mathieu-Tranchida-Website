@@ -24,3 +24,55 @@ export const updateAccountType = (data) => ({
   type: "UPDATE_ACCOUNT_TYPE",
   data,
 });
+
+// PRODUCT ----------------------------------------
+// Add product to the store (from admin/add-product)
+export const updateAddProductImageName = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_IMAGE_NAME",
+  data,
+});
+
+export const updateAddProductImageSrc = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_IMAGE_SRC",
+  data,
+});
+
+export const updateAddProductAthlete = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_ATHLETE",
+  data,
+});
+
+export const updateAddProductLocation = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_LOCATION",
+  data,
+});
+
+export const updateAddProductProject = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_PROJECT",
+  data,
+});
+
+export const updateAddProductImageType = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_IMAGE_TYPE",
+  data,
+});
+
+export const updateAddProductImageFormat = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_IMAGE_FORMAT",
+  data,
+});
+
+export const updateAddProductClientWarning = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_CLIENT_WARNING",
+  data,
+});
+
+export const updateAddProductTag = (data) => ({
+  type: "UPDATE_ADD_PRODUCT_TAG",
+  data,
+});
+
+export const clearAddProduct = (data) => ({
+  type: "CLEAR_ADD_PRODUCT",
+  data,
+});

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import COLORS from "../../constants";
@@ -7,6 +7,8 @@ import COLORS from "../../constants";
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
 
   return (
     <>
@@ -32,9 +34,21 @@ const LoginComponent = () => {
             }}
           />
         </InputDiv>
-        <SignUp to="/create-account">Create an account</SignUp>
+        <SignUp
+          onClick={(ev) => {
+            history.push("/create-account");
+          }}
+        >
+          Create an account
+        </SignUp>
         <ButtonWrapper>
-          <Button>Login</Button>
+          <Button
+            onClick={(ev) => {
+              history.push("/admin");
+            }}
+          >
+            Login
+          </Button>
         </ButtonWrapper>
       </Wrapper>
     </>
@@ -79,7 +93,7 @@ const Input = styled.input`
   color: ${COLORS.white};
 `;
 
-const SignUp = styled(NavLink)`
+const SignUp = styled.div`
   display: block;
   text-align: right;
   font-size: 10pt;
