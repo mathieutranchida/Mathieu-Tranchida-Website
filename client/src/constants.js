@@ -13,6 +13,9 @@ const COLORS = {
 
   // drop shadow
   dropShadow: "#a0a0a0",
+
+  // grey
+  grey: "grey",
 };
 
 export default COLORS;
