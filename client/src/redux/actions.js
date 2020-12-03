@@ -76,3 +76,17 @@ export const clearAddProduct = (data) => ({
   type: "CLEAR_ADD_PRODUCT",
   data,
 });
+
+// Receive all products from database
+export const requestAllProducts = () => ({
+  type: "REQUEST_ALL_PRODUCTS",
+});
+
+export const receiveAllProducts = (products) => ({
+  type: "RECEIVE_ALL_PRODUCTS",
+  products,
+});
+
+export const receiveAllProductsError = () => ({
+  type: "RECEIVE_ALL_PRODUCTS_ERROR",
+});

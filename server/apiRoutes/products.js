@@ -51,7 +51,7 @@ const getProductById = async (req, res) => {
   const db = client.db("mtwebsite");
   console.log("connected!");
 
-  const _id = ObjectId(req.params.id);
+  const _id = ObjectId(req.params._id);
   console.log(_id);
 
   db.collection("products").findOne({ _id }, (err, result) => {
@@ -96,7 +96,7 @@ const modifyProduct = async (req, res) => {
     const db = client.db("mtwebsite");
     console.log("connected!");
 
-    const _id = req.params.id;
+    const _id = req.params._id;
     console.log(_id);
     const query = { _id: ObjectId(_id) };
     const newValues = { $set: req.body };
@@ -129,7 +129,7 @@ const deleteProduct = async (req, res) => {
     const db = client.db("mtwebsite");
     console.log("connected!");
 
-    const _id = ObjectId(req.params.id);
+    const _id = ObjectId(req.params._id);
 
     const result = await db.collection("products").deleteOne({ _id });
     // console.log(result);
