@@ -19,6 +19,7 @@ import {
   updateAddProductTag,
   clearAddProduct,
 } from "../../../../redux/actions";
+import AdminHeader from "../../adminHeader";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,10 @@ const AddProduct = () => {
       <Wrapper>
         <SideBar />
         <MainWrapper>
-          <Header>Add a product to the store</Header>
+          <Header>
+            <Section>Add a product to the store</Section>
+            <AdminHeader />
+          </Header>
           <FormWrapper>
             <Main>
               <InputDiv>
@@ -173,7 +177,7 @@ const AddProduct = () => {
                 <InstructionsWrapper>
                   <Instructions>Drop photo here</Instructions>
                   <Instructions>or</Instructions>
-                  <Instructions> Click here to add photos</Instructions>
+                  <Instructions> Click here to add photo</Instructions>
                 </InstructionsWrapper>
               </ImageUploadWrapper>
             )}
@@ -208,15 +212,21 @@ const Wrapper = styled.div`
 `;
 
 const MainWrapper = styled.div`
-  width: calc(100vw - 100px);
+  width: calc(100vw - 300px);
 `;
 
 const Header = styled.div`
-  padding: 25px;
-  font-weight: 500;
   border-bottom: 1px grey solid;
   border-image-source: linear-gradient(270deg, white 5%, grey 65%, grey 100%);
   border-image-slice: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+`;
+
+const Section = styled.div`
+  font-weight: 500;
 `;
 
 const FormWrapper = styled.div`

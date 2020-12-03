@@ -60,16 +60,16 @@ express()
   .get("/products", getAllProducts)
 
   // Get single product
-  .get("/product/:id", getProductById)
+  .get("/product/:_id", getProductById)
 
   // Create product
   .post("/post-product", postProduct)
 
   // Modify product
-  .put("/modify-product/:id", modifyProduct)
+  .put("/modify-product/:_id", modifyProduct)
 
   // Delete product
-  .delete("/delete-product/:id", deleteProduct)
+  .delete("/delete-product/:_id", deleteProduct)
 
   // CART ENDPOINTS ---------------------------------------------
 

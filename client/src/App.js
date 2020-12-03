@@ -28,29 +28,40 @@ import AllProducts from "./components/admin/adminPages/products/AllProducts";
 import AddUser from "./components/admin/adminPages/users/AddUser";
 import AllUsers from "./components/admin/adminPages/users/AllUsers";
 
+// Custom hook call imports
+import useFetchAllProducts from "./customHooks/useFetchAllProducts";
+
 const App = () => {
+  useFetchAllProducts();
+
   return (
     <>
       <BrowserRouter>
         <GlobalStyles />
         <Wrapper>
-          <Header />
           <Switch>
             <Route exact path="/">
+              <Header />
               <Homepage />
             </Route>
             <Route path="/rates">
+              <Header />
               <Rates />
             </Route>
             <Route path="/blog">
+              <Header />
               <Blog />
             </Route>
             <Route path="/store">
+              <Header />
               <Shop />
             </Route>
             <Route path="/testimonies">
+              <Header />
               <Testimonies />
             </Route>
+
+            {/* --------------------AUTHENTICATION------------------ */}
             <Route path="/login">
               <Login />
             </Route>

@@ -160,6 +160,9 @@ const DropdownItem = styled(NavLink)`
   &:focus {
     background-color: #eeeeee;
   }
+  &.active {
+    background-color: #eeeeee;
+  }
 `;
 
 export default SideBar;
