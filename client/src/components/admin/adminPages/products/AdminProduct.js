@@ -4,7 +4,8 @@ import { Image } from "cloudinary-react";
 
 import COLORS from "../../../../constants";
 
-import { BiPencil, BiTrash } from "react-icons/bi";
+import ButtonEdit from "./ButtonEdit";
+import ButtonDelete from "./ButtonDelete";
 
 const AdminProduct = ({
   imageName,
@@ -18,18 +19,6 @@ const AdminProduct = ({
   tag,
   _id,
 }) => {
-  const handleDelete = (_id) => {
-    fetch(`/delete-product/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ _id: _id }),
-    }).then(() => {
-      window.location.reload();
-    });
-  };
-
   return (
     <>
       <Wrapper>
@@ -57,17 +46,8 @@ const AdminProduct = ({
           </RightColumn>
         </InfoWrapper>
         <ActionWrapper>
-          <Button>
-            <BiPencil style={{ width: "20px", height: "20px" }} />
-          </Button>
-          <Button>
-            <BiTrash
-              style={{ width: "20px", height: "20px" }}
-              onClick={() => {
-                handleDelete(_id);
-              }}
-            />
-          </Button>
+          <ButtonEdit _id={_id} />
+          <ButtonDelete _id={_id} />
         </ActionWrapper>
       </Wrapper>
     </>
