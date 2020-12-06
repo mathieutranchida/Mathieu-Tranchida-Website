@@ -13,6 +13,7 @@ import { BiX } from "react-icons/bi";
 
 import {
   addProductNameBeforeAddToCart,
+  addProductImageSrcBeforeAddToCart,
   addProductIdBeforeAddToCart,
   addProductPaperTypeBeforeAddToCart,
   addProductSizeBeforeAddToCart,
@@ -20,6 +21,7 @@ import {
   addProductPriceBeforeAddToCart,
   addProductBeforeAddToCartReset,
 } from "../../redux/actions";
+import { cartAddProduct } from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 const OneProduct = ({ ...product }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [productPrice, setProductPrice] = useState("");
 
   const dispatch = useDispatch();
 
@@ -59,8 +60,6 @@ const OneProduct = ({ ...product }) => {
     (state) => state.productBeforeAddToCartReducer
   );
 
-  console.log(productInfo);
-
   return (
     <>
       <Wrapper>
@@ -69,6 +68,7 @@ const OneProduct = ({ ...product }) => {
             handleOpen();
             dispatch(addProductBeforeAddToCartReset());
             dispatch(addProductNameBeforeAddToCart(product.imageName));
+            dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
             dispatch(addProductIdBeforeAddToCart(product._id));
           }}
         >
@@ -107,6 +107,7 @@ const OneProduct = ({ ...product }) => {
             handleOpen();
             dispatch(addProductBeforeAddToCartReset());
             dispatch(addProductNameBeforeAddToCart(product.imageName));
+            dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
             dispatch(addProductIdBeforeAddToCart(product._id));
           }}
         >
@@ -269,6 +270,9 @@ const OneProduct = ({ ...product }) => {
                   )}
                   <ButtonAdd
                     disabled={!productInfo.paperType || !productInfo.size}
+                    onClick={() => {
+                      dispatch(cartAddProduct(productInfo));
+                    }}
                   >
                     Add to cart
                   </ButtonAdd>

@@ -1,5 +1,6 @@
 const initialState = {
   name: "",
+  imageSrc: "",
   _id: "",
   paperType: "",
   size: "",
@@ -16,6 +17,12 @@ export default function productBeforeAddToCartReducer(
       return {
         ...state,
         name: action.name,
+      };
+    }
+    case "ADD_PRODUCT_IMAGE_SRC_BEFORE_ADD_TO_CART": {
+      return {
+        ...state,
+        imageSrc: action.imageSrc,
       };
     }
     case "ADD_PRODUCT_ID_BEFORE_ADD_TO_CART": {

@@ -5,6 +5,7 @@ import adminAddProductReducer from "./adminAddProductReducer";
 import allProductsReducer from "./allProductsReducer";
 import priceListReducer from "./priceListReducer";
 import productBeforeAddToCartReducer from "./productBeforeAddToCartReducer";
+import cartReducer from "./cartReducer";
 
 export default combineReducers({
   createUserReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   allProductsReducer,
   priceListReducer,
   productBeforeAddToCartReducer,
+  cartReducer,
 });
