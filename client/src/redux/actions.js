@@ -97,6 +97,11 @@ export const addProductNameBeforeAddToCart = (name) => ({
   name,
 });
 
+export const addProductImageSrcBeforeAddToCart = (imageSrc) => ({
+  type: "ADD_PRODUCT_IMAGE_SRC_BEFORE_ADD_TO_CART",
+  imageSrc,
+});
+
 export const addProductIdBeforeAddToCart = (_id) => ({
   type: "ADD_PRODUCT_ID_BEFORE_ADD_TO_CART",
   _id,
@@ -140,4 +145,24 @@ export const receivePriceList = (priceList) => ({
 
 export const receivePriceListError = () => ({
   type: "RECEIVE_PRICE_LIST_ERROR",
+});
+
+// CART ------------------------------------------
+// Add product to cart
+export const cartAddProduct = (product) => ({
+  type: "CART_ADD_PRODUCT",
+  product,
+});
+
+export const requestCart = () => ({
+  type: "REQUEST_CART",
+});
+
+export const receiveCart = (data) => ({
+  type: "RECEIVE_CART",
+  data,
+});
+
+export const requestCartError = () => ({
+  type: "RECEIVE_CART_ERROR",
 });
