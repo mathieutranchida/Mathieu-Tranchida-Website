@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Image, Transformation } from "cloudinary-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -10,6 +10,16 @@ import Fade from "@material-ui/core/Fade";
 
 import COLORS from "../../constants";
 import { BiX } from "react-icons/bi";
+
+import {
+  addProductNameBeforeAddToCart,
+  addProductIdBeforeAddToCart,
+  addProductPaperTypeBeforeAddToCart,
+  addProductSizeBeforeAddToCart,
+  adjustProductQuantityBeforeAddToCart,
+  addProductPriceBeforeAddToCart,
+  addProductBeforeAddToCartReset,
+} from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -28,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
 const OneProduct = ({ ...product }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [productPrice, setProductPrice] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -42,10 +55,23 @@ const OneProduct = ({ ...product }) => {
       state.priceListReducer.priceList && state.priceListReducer.priceList
   );
 
+  const productInfo = useSelector(
+    (state) => state.productBeforeAddToCartReducer
+  );
+
+  console.log(productInfo);
+
   return (
     <>
       <Wrapper>
-        <ImageWrapper onClick={handleOpen}>
+        <ImageWrapper
+          onClick={() => {
+            handleOpen();
+            dispatch(addProductBeforeAddToCartReset());
+            dispatch(addProductNameBeforeAddToCart(product.imageName));
+            dispatch(addProductIdBeforeAddToCart(product._id));
+          }}
+        >
           <Image
             cloudName="dldqebddc"
             publicId={product.imageSrc}
@@ -76,7 +102,16 @@ const OneProduct = ({ ...product }) => {
             //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w`}
           /> */}
         </ImageWrapper>
-        <AddToCart onClick={handleOpen}>Add to cart</AddToCart>
+        <AddToCart
+          onClick={() => {
+            handleOpen();
+            dispatch(addProductBeforeAddToCartReset());
+            dispatch(addProductNameBeforeAddToCart(product.imageName));
+            dispatch(addProductIdBeforeAddToCart(product._id));
+          }}
+        >
+          Buy photo
+        </AddToCart>
       </Wrapper>
 
       {/* ----------------------Modal---------------------- */}
@@ -131,7 +166,15 @@ const OneProduct = ({ ...product }) => {
                   </Project>
                   <Dropdowns>
                     <InputDiv>
-                      <Select name="paper type" required>
+                      <Select
+                        name="paper type"
+                        required
+                        onChange={(ev) => {
+                          dispatch(
+                            addProductPaperTypeBeforeAddToCart(ev.target.value)
+                          );
+                        }}
+                      >
                         <Option value="">Choose paper</Option>
                         <Option value="glossy">Glossy</Option>
                         <Option value="matte">Matte</Option>
@@ -141,13 +184,30 @@ const OneProduct = ({ ...product }) => {
                       </Type>
                     </InputDiv>
                     <InputDiv>
-                      <Select name="image format" required>
-                        <Option value="">Choose format</Option>
+                      <Select
+                        name="image format"
+                        required
+                        onChange={(ev) => {
+                          dispatch(
+                            addProductSizeBeforeAddToCart(
+                              ev.target.value.replace(/[0-9]/g, "")
+                            )
+                          );
+                          dispatch(
+                            addProductPriceBeforeAddToCart(
+                              ev.target.value.replace(/\D/g, "")
+                            )
+                          );
+                        }}
+                      >
+                        <Option value="" price="">
+                          Choose format
+                        </Option>
                         {product.imageFormat === "2x3" &&
                           priceLists.twoByThree.map((productOption) => {
                             return (
                               <Option
-                                value={`${productOption.size} - $${productOption.price}`}
+                                value={`${productOption.sizeValue}${productOption.price}`}
                                 key={productOption.size}
                               >
                                 {productOption.size} - ${productOption.price}
@@ -158,8 +218,9 @@ const OneProduct = ({ ...product }) => {
                           priceLists.fourByFive.map((productOption) => {
                             return (
                               <Option
-                                value={`${productOption.size} - $${productOption.price}`}
+                                value={`${productOption.sizeValue}${productOption.price}`}
                                 key={productOption.size}
+                                price={productOption.price}
                               >
                                 {productOption.size} - ${productOption.price}
                               </Option>
@@ -169,8 +230,9 @@ const OneProduct = ({ ...product }) => {
                           priceLists.oneByOne.map((productOption) => {
                             return (
                               <Option
-                                value={`${productOption.size} - $${productOption.price}`}
+                                value={`${productOption.sizeValue}${productOption.price}`}
                                 key={productOption.size}
+                                price={productOption.price}
                               >
                                 {productOption.size} - ${productOption.price}
                               </Option>
@@ -184,17 +246,32 @@ const OneProduct = ({ ...product }) => {
                   </Dropdowns>
                 </Details>
                 <CartInfo>
-                  <Quantity>
-                    Quantity:{" "}
-                    <QuantityInput
-                      type="number"
-                      defaultValue="1"
-                      min="1"
-                      max="9"
-                    />
-                  </Quantity>
-                  <Price>CAD$ 10.00</Price>
-                  <ButtonAdd>Add to cart</ButtonAdd>
+                  {productInfo.price && (
+                    <Quantity>
+                      Quantity:{" "}
+                      <QuantityInput
+                        onChange={(ev) => {
+                          dispatch(
+                            adjustProductQuantityBeforeAddToCart(
+                              ev.target.value
+                            )
+                          );
+                        }}
+                        type="number"
+                        defaultValue="1"
+                        min="1"
+                        max="9"
+                      />
+                    </Quantity>
+                  )}
+                  {productInfo.price && (
+                    <Price>CAD$ {productInfo.price}.00</Price>
+                  )}
+                  <ButtonAdd
+                    disabled={!productInfo.paperType || !productInfo.size}
+                  >
+                    Add to cart
+                  </ButtonAdd>
                 </CartInfo>
               </InfoWrapper>
             </Main>
@@ -337,11 +414,15 @@ const ButtonAdd = styled.button`
   border: black 1px solid;
   color: black;
   padding: 15px;
-  cursor: pointer;
   width: 250px;
-  &:hover {
+  &:hover:not([disabled]) {
     background-color: black;
     color: white;
+    cursor: pointer;
+  }
+  &:disabled {
+    border: grey 1px solid;
+    color: grey;
   }
 `;
 

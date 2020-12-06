@@ -1,22 +1,46 @@
 {
   "twoByThree": [
-    { "size": "4 by 6 inches", "price": 5 },
-    { "size": "6 by 9 inches", "price": 10 },
-    { "size": "8 by 12 inches", "price": 25 },
-    { "size": "10 by 15 inches", "price": 35 },
-    { "size": "12 by 18 inches", "price": 65 }
+    { "size": "4 by 6 inches", "sizeValue": "fourBySixInches", "price": 5 },
+    { "size": "6 by 9 inches", "sizeValue": "sixByNineInches", "price": 10 },
+    {
+      "size": "8 by 12 inches",
+      "sizeValue": "eightByTwelveInches",
+      "price": 25
+    },
+    {
+      "size": "10 by 15 inches",
+      "sizeValue": "tenByFifteenInches",
+      "price": 35
+    },
+    {
+      "size": "12 by 18 inches",
+      "sizeValue": "twelveByEighteenInches",
+      "price": 65
+    }
   ],
   "fourByFive": [
-    { "size": "3.5 by 5 inches", "price": 5 },
-    { "size": "6 by 8 inches", "price": 10 },
-    { "size": "8 by 10 inches", "price": 20 },
-    { "size": "11 by 14 inches", "price": 40 }
+    {
+      "size": "3.5 by 5 inches",
+      "sizeValue": "threeHalfByFiveInches",
+      "price": 5
+    },
+    { "size": "6 by 8 inches", "sizeValue": "sixByEightInches", "price": 10 },
+    { "size": "8 by 10 inches", "sizeValue": "eightByTenInches", "price": 20 },
+    {
+      "size": "11 by 14 inches",
+      "sizeValue": "elevenByFourteenInches",
+      "price": 40
+    }
   ],
   "oneByOne": [
-    { "size": "4 by 4 inches", "price": 5 },
-    { "size": "5 by 5 inches", "price": 10 },
-    { "size": "6 by 6 inches", "price": 15 },
-    { "size": "8 by 8 inches", "price": 25 },
-    { "size": "12 by 12 inches", "price": 60 }
+    { "size": "4 by 4 inches", "sizeValue": "fourByFourInches", "price": 5 },
+    { "size": "5 by 5 inches", "sizeValue": "fiveByFiveInches", "price": 10 },
+    { "size": "6 by 6 inches", "sizeValue": "sixBySixInches", "price": 15 },
+    { "size": "8 by 8 inches", "sizeValue": "eightByEightInches", "price": 25 },
+    {
+      "size": "12 by 12 inches",
+      "sizeValue": "twelveByTwelveInches",
+      "price": 60
+    }
   ]
 }
