@@ -99,7 +99,18 @@ const modifyProduct = async (req, res) => {
     const _id = req.params._id;
     console.log(_id);
     const query = { _id: ObjectId(_id) };
-    const newValues = { $set: req.body };
+    const newValues = {
+      $set: {
+        imageName: req.body.imageName,
+        athlete: req.body.athlete,
+        location: req.body.location,
+        project: req.body.project,
+        imageType: req.body.imageType,
+        imageFormat: req.body.imageFormat,
+        clientWarning: req.body.clientWarning,
+        tag: req.body.tag,
+      },
+    };
     console.log(req.body);
 
     const result = await db.collection("products").updateOne(query, newValues);
