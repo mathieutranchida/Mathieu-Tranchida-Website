@@ -30,9 +30,11 @@ import AllUsers from "./components/admin/adminPages/users/AllUsers";
 
 // Custom hook call imports
 import useFetchAllProducts from "./customHooks/useFetchAllProducts";
+import useFetchPriceList from "./customHooks/useFetchPriceList";
 
 const App = () => {
   useFetchAllProducts();
+  useFetchPriceList();
 
   return (
     <>

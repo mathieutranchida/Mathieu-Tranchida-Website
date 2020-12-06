@@ -207,7 +207,7 @@ const ButtonEdit = ({ _id }) => {
                     setProduct((product) => {
                       return {
                         ...product,
-                        imageName: ev.target.value,
+                        clientWarning: ev.target.value,
                       };
                     });
                   }}
@@ -222,7 +222,7 @@ const ButtonEdit = ({ _id }) => {
                     setProduct((product) => {
                       return {
                         ...product,
-                        imageName: ev.target.value,
+                        tag: ev.target.value,
                       };
                     });
                   }}

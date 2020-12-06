@@ -26,7 +26,7 @@ const AllProducts = () => {
           <GridWrapper>
             {products &&
               products.map((product) => (
-                <AdminProduct key={product.imageSrc} {...product} />
+                <AdminProduct key={product._id} {...product} />
               ))}
           </GridWrapper>
         </MainWrapper>

@@ -12,7 +12,7 @@ const initialState = {
   tag: [],
 };
 
-export default function addProductReducer(state = initialState, action) {
+export default function adminAddProductReducer(state = initialState, action) {
   switch (action.type) {
     case "UPDATE_ADD_PRODUCT_IMAGE_NAME": {
       return {

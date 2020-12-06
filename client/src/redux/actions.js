@@ -90,3 +90,18 @@ export const receiveAllProducts = (products) => ({
 export const receiveAllProductsError = () => ({
   type: "RECEIVE_ALL_PRODUCTS_ERROR",
 });
+
+// PRICE LIST ------------------------------------
+// Receive price list
+export const requestPriceList = () => ({
+  type: "REQUEST_PRICE_LIST",
+});
+
+export const receivePriceList = (priceList) => ({
+  type: "RECEIVE_PRICE_LIST",
+  priceList,
+});
+
+export const receivePriceListError = () => ({
+  type: "RECEIVE_PRICE_LIST_ERROR",
+});

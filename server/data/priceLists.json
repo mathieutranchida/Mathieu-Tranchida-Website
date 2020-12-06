@@ -1,0 +1,22 @@
+{
+  "twoByThree": [
+    { "size": "4 by 6 inches", "price": 5 },
+    { "size": "6 by 9 inches", "price": 10 },
+    { "size": "8 by 12 inches", "price": 25 },
+    { "size": "10 by 15 inches", "price": 35 },
+    { "size": "12 by 18 inches", "price": 65 }
+  ],
+  "fourByFive": [
+    { "size": "3.5 by 5 inches", "price": 5 },
+    { "size": "6 by 8 inches", "price": 10 },
+    { "size": "8 by 10 inches", "price": 20 },
+    { "size": "11 by 14 inches", "price": 40 }
+  ],
+  "oneByOne": [
+    { "size": "4 by 4 inches", "price": 5 },
+    { "size": "5 by 5 inches", "price": 10 },
+    { "size": "6 by 6 inches", "price": 15 },
+    { "size": "8 by 8 inches", "price": 25 },
+    { "size": "12 by 12 inches", "price": 60 }
+  ]
+}
