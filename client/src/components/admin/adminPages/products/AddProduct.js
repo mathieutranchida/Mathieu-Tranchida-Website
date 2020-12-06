@@ -24,7 +24,7 @@ import AdminHeader from "../../adminHeader";
 const AddProduct = () => {
   const dispatch = useDispatch();
 
-  const newProduct = useSelector((state) => state.addProductReducer);
+  const newProduct = useSelector((state) => state.adminAddProductReducer);
 
   const onDrop = useCallback((acceptedFiles) => {
     const url = "https://api.cloudinary.com/v1_1/dldqebddc/upload";

@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import {
-  requestAllProducts,
-  receiveAllProducts,
-  receiveAllProductsError,
+  requestPriceList,
+  receivePriceList,
+  receivePriceListError,
 } from "../redux/actions";
 
-const useFetchAllProducts = () => {
+const useFetchPriceList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(requestAllProducts());
-    fetch("/products", {
+    dispatch(requestPriceList());
+    fetch("/price-lists", {
       method: "get",
       headers: {
         "Content-Type": "application.json",
@@ -20,13 +20,13 @@ const useFetchAllProducts = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch(receiveAllProducts(data.data));
+        dispatch(receivePriceList(data.data));
       })
       .catch((err) => {
         console.log(err);
-        dispatch(receiveAllProductsError());
+        dispatch(receivePriceListError());
       });
   }, []);
 };
 
-export default useFetchAllProducts;
+export default useFetchPriceList;

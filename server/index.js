@@ -20,13 +20,14 @@ const {
   deleteUser,
 } = require("./apiRoutes/users");
 
-const {
-  getAllPriceLists,
-  getPriceList,
-  postPriceList,
-  modifyPriceList,
-  deletePriceList,
-} = require("./apiRoutes/priceList");
+const { getPriceLists } = require("./apiRoutes/priceLists");
+
+// const {
+//   getCart,
+//   AddProductToCart,
+//   modifyProductCartQuantity,
+//   deleteProductFromCart,
+// } = require("./apiRoutes/cart");
 
 const PORT = 4000;
 
@@ -71,23 +72,22 @@ express()
   // Delete product
   .delete("/delete-product/:_id", deleteProduct)
 
-  // CART ENDPOINTS ---------------------------------------------
+  // // CART ENDPOINTS ---------------------------------------------
+  // // Get cart
+  // .get("/cart", getCart)
+
+  // // Add product to cart
+  // .post("/add-to-cart", AddProductToCart)
+
+  // // Modify product quantity in the cart
+  // .patch("/modify-cart-product-quantity/:_id", modifyProductCartQuantity)
+
+  // // Delete product from the cart
+  // .delete("/delete-cart-product/:_id", deleteProductFromCart)
 
   // PRICE LIST ENDPOINTS ---------------------------------------
   // Get all price lists
-  .get("/price-lists", getAllPriceLists)
-
-  // Get one price list
-  .get("/price-list/:id", getPriceList)
-
-  // Post price list
-  .post("/post-price-list", postPriceList)
-
-  // Modify price list
-  .put("/modify-price-list/:id", modifyPriceList)
-
-  // Delete price list
-  .delete("/delete-price-list/:id", deletePriceList)
+  .get("/price-lists", getPriceLists)
 
   // ORDER ENDPOINTS --------------------------------------------
 
