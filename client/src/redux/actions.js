@@ -91,6 +91,42 @@ export const receiveAllProductsError = () => ({
   type: "RECEIVE_ALL_PRODUCTS_ERROR",
 });
 
+// Product information before adding to cart
+export const addProductNameBeforeAddToCart = (name) => ({
+  type: "ADD_PRODUCT_NAME_BEFORE_ADD_TO_CART",
+  name,
+});
+
+export const addProductIdBeforeAddToCart = (_id) => ({
+  type: "ADD_PRODUCT_ID_BEFORE_ADD_TO_CART",
+  _id,
+});
+
+export const addProductPaperTypeBeforeAddToCart = (paperType) => ({
+  type: "ADD_PRODUCT_PAPER_TYPE_BEFORE_ADD_TO_CART",
+  paperType,
+});
+
+export const addProductSizeBeforeAddToCart = (size) => ({
+  type: "ADD_PRODUCT_SIZE_BEFORE_ADD_TO_CART",
+  size,
+});
+
+export const adjustProductQuantityBeforeAddToCart = (quantity) => ({
+  type: "ADJUST_QUANTITY_BEFORE_ADD_TO_CART",
+  quantity,
+});
+
+export const addProductPriceBeforeAddToCart = (price) => ({
+  type: "ADD_PRODUCT_PRICE_BEFORE_ADD_TO_CART",
+  price,
+});
+
+export const addProductBeforeAddToCartReset = (price) => ({
+  type: "ADD_PRODUCT_BEFORE_ADD_TO_CART_RESET",
+  price,
+});
+
 // PRICE LIST ------------------------------------
 // Receive price list
 export const requestPriceList = () => ({
