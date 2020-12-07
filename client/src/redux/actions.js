@@ -149,9 +149,59 @@ export const receivePriceListError = () => ({
 
 // CART ------------------------------------------
 // Add product to cart
+export const cartUpdateCartId = (_id) => ({
+  type: "CART_UPDATE_CART_ID",
+  _id,
+});
+
 export const cartAddProduct = (product) => ({
   type: "CART_ADD_PRODUCT",
   product,
+});
+
+export const cartRemoveProduct = (product) => ({
+  type: "CART_REMOVE_PRODUCT",
+  product,
+});
+
+export const cartUpdateProductQuantity = (product) => ({
+  type: "CART_UPDATE_PRODUCT_QUANTITY",
+  product,
+});
+
+export const cartUpdateTotalAmountOfProducts = (totalAmountOfProducts) => ({
+  type: "CART_UPDATE_TOTAL_AMOUNT_OF_PRODUCTS",
+  totalAmountOfProducts,
+});
+
+export const cartUpdateTotalPriceBeforeTax = (totalPriceBeforeTax) => ({
+  type: "CART_UPDATE_TOTAL_PRICE_BEFORE_TAX",
+  totalPriceBeforeTax,
+});
+
+export const cartUpdateGst = (gst) => ({
+  type: "CART_UPDATE_GST",
+  gst,
+});
+
+export const cartUpdateQst = (qst) => ({
+  type: "CART_UPDATE_QST",
+  qst,
+});
+
+export const cartUpdateTotalPriceAfterTax = (totalPriceAfterTax) => ({
+  type: "CART_UPDATE_TOTAL_PRICE_AFTER_TAX",
+  totalPriceAfterTax,
+});
+
+export const cartUpdateShipping = (shipping) => ({
+  type: "CART_UPDATE_SHIPPING",
+  shipping,
+});
+
+export const cartUpdateTotalFinal = (cartTotalFinal) => ({
+  type: "CART_UPDATE_TOTAL_FINAL",
+  cartTotalFinal,
 });
 
 export const requestCart = () => ({

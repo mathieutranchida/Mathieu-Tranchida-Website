@@ -22,12 +22,12 @@ const {
 
 const { getPriceLists } = require("./apiRoutes/priceLists");
 
-// const {
-//   getCart,
-//   AddProductToCart,
-//   modifyProductCartQuantity,
-//   deleteProductFromCart,
-// } = require("./apiRoutes/cart");
+const {
+  getCartById,
+  postCart,
+  modifyCart,
+  deleteCart,
+} = require("./apiRoutes/cart");
 
 const PORT = 4000;
 
@@ -72,18 +72,18 @@ express()
   // Delete product
   .delete("/delete-product/:_id", deleteProduct)
 
-  // // CART ENDPOINTS ---------------------------------------------
-  // // Get cart
-  // .get("/cart", getCart)
+  // CART ENDPOINTS ---------------------------------------------
+  // Get cart
+  .get("/cart/:_id", getCartById)
 
-  // // Add product to cart
-  // .post("/add-to-cart", AddProductToCart)
+  // Add product to cart
+  .post("/add-cart", postCart)
 
-  // // Modify product quantity in the cart
-  // .patch("/modify-cart-product-quantity/:_id", modifyProductCartQuantity)
+  // Add, modify, and delete a product in the cart
+  .patch("/modify-cart/:_id", modifyCart)
 
-  // // Delete product from the cart
-  // .delete("/delete-cart-product/:_id", deleteProductFromCart)
+  // Delete product from the cart
+  .delete("/delete-cart/:_id", deleteCart)
 
   // PRICE LIST ENDPOINTS ---------------------------------------
   // Get all price lists

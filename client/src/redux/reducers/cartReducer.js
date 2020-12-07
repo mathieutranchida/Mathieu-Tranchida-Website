@@ -1,43 +1,119 @@
 const initialState = {
-  products: [
-    //remove
-    {
-      product: {
-        name: "Classic LDM blunt sur muraille",
-        imageSrc: "qazdsao0hlv8mn4ayzh7",
-        _id: "5fc8003e1a4fc743e82db183",
-        paperType: "glossy",
-        size: "tenByFifteenInches",
-        quantity: "1",
-        price: "35",
-      },
-    },
-    {
-      product: {
-        name: "OnSite Sunrise",
-        imageSrc: "eu1all1cpqcfqfncpwpd",
-        _id: "5fc8019b1a4fc743e82db184",
-        paperType: "matte",
-        size: "eightByTwelveInches",
-        quantity: "1",
-        price: "25",
-      },
-    },
-    //end remove
-  ],
+  _id: null,
+  products: [],
   totalAmountOfProducts: null,
   totalPriceBeforeTax: null,
-  tax: null,
+  gst: null,
+  qst: null,
   totalPriceAfterTax: null,
+  shipping: null,
+  cartTotalFinal: null,
   status: "idle",
 };
 
 export default function cartReducer(state = initialState, action) {
+  const newState = { ...state };
   switch (action.type) {
-    case "CART_ADD_PRODUCT": {
+    case "CART_UPDATE_CART_ID": {
       return {
         ...state,
-        products: [...state.products, { product: action.product }],
+        _id: action._id,
+      };
+    }
+    case "CART_ADD_PRODUCT": {
+      newState.products = [...newState.products, action.product];
+      newState.totalAmountOfProducts = newState.products.reduce(
+        (acc, product) => {
+          return acc + parseFloat(product.quantity);
+        },
+        0
+      );
+      return newState;
+      // return {
+      //   ...state,
+      //   products: [...state.products, action.product],
+      // };
+    }
+    case "CART_REMOVE_PRODUCT": {
+      const stateCopy = { ...state };
+      const indexToRemove = stateCopy.products.findIndex(
+        (product) => product._id === action.product
+      );
+      if (indexToRemove !== -1) {
+        stateCopy.products.splice(indexToRemove, 1);
+        return {
+          ...stateCopy,
+          products: [...stateCopy.products],
+        };
+      } else {
+        return {
+          ...stateCopy,
+        };
+      }
+    }
+    case "CART_UPDATE_PRODUCT_QUANTITY": {
+      const index = newState.products.findIndex(
+        (product) => product._id === action.product
+      );
+      if (index !== -1) {
+        newState.products[index].quantity = action.product.quantity;
+      }
+      return newState;
+    }
+    //   const stateCopy = { ...state };
+    //   const indexToChange = stateCopy.products.findIndex(
+    //     (product) => product._id === action.product
+    //   );
+    //   if (indexToChange !== -1) {
+    //     return {
+    //       ...stateCopy,
+    //     };
+    //   } else {
+    //     return {
+    //       ...stateCopy,
+    //     };
+    //   }
+    // }
+    case "CART_UPDATE_TOTAL_AMOUNT_OF_PRODUCTS": {
+      return {
+        ...state,
+        totalAmountOfProducts: action.totalAmountOfProducts,
+      };
+    }
+    case "CART_UPDATE_TOTAL_PRICE_BEFORE_TAX": {
+      return {
+        ...state,
+        totalPriceBeforeTax: action.totalPriceBeforeTax,
+      };
+    }
+    case "CART_UPDATE_GST": {
+      return {
+        ...state,
+        gst: action.gst,
+      };
+    }
+    case "CART_UPDATE_QST": {
+      return {
+        ...state,
+        qst: action.qst,
+      };
+    }
+    case "CART_UPDATE_TOTAL_PRICE_AFTER_TAX": {
+      return {
+        ...state,
+        totalPriceAfterTax: action.totalPriceAfterTax,
+      };
+    }
+    case "CART_UPDATE_SHIPPING": {
+      return {
+        ...state,
+        shipping: action.shipping,
+      };
+    }
+    case "CART_UPDATE_TOTAL_FINAL": {
+      return {
+        ...state,
+        cartTotalFinal: action.cartTotalFinal,
       };
     }
     case "REQUEST_CART": {
@@ -53,8 +129,11 @@ export default function cartReducer(state = initialState, action) {
         products: action.data.products,
         totalAmountOfProducts: action.data.totalAmountOfProducts,
         totalPriceBeforeTax: action.data.totalPriceBeforeTax,
-        tax: action.data.tax,
+        gst: action.data.gst,
+        qst: action.data.qst,
         totalPriceAfterTax: action.data.totalPriceAfterTax,
+        shipping: action.data.shipping,
+        cartTotalFinal: action.data.cartTotalFinal,
       };
     }
     case "RECEIVE_CART_ERROR": {

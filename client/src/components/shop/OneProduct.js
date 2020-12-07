@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Image, Transformation } from "cloudinary-react";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -21,7 +22,13 @@ import {
   addProductPriceBeforeAddToCart,
   addProductBeforeAddToCartReset,
 } from "../../redux/actions";
-import { cartAddProduct } from "../../redux/actions";
+
+import {
+  cartAddProduct,
+  cartUpdateCartId,
+  cartUpdateTotalAmountOfProducts,
+  cartUpdateTotalPriceBeforeTax,
+} from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -60,6 +67,47 @@ const OneProduct = ({ ...product }) => {
     (state) => state.productBeforeAddToCartReducer
   );
 
+  const cart = useSelector((state) => state.cartReducer);
+  // console.log(cart);
+
+  const createCartId = () => {
+    if (!localStorage.mtCartId) {
+      localStorage.setItem("mtCartId", uuidv4());
+      dispatch(cartUpdateCartId(localStorage.getItem("mtCartId")));
+    } else {
+      dispatch(cartUpdateCartId(localStorage.getItem("mtCartId")));
+    }
+  };
+
+  const calculateCart = () => {
+    // Update amount of products in the cart
+    // const totalAmountOfProducts = cart.products.forEach((product) => {
+    //   let resultTotalAmountOfProducts = 0;
+    //   console.log(product.quantity);
+    //   resultTotalAmountOfProducts += parseFloat(product.quantity);
+    //   return resultTotalAmountOfProducts;
+    // });
+    // dispatch(cartUpdateTotalAmountOfProducts(totalAmountOfProducts));
+    const totalAmountOfProducts = cart.products.reduce((acc, product) => {
+      return acc + parseFloat(product.quantity);
+    }, 0);
+    // console.log(cart.products);
+    // console.log(totalAmountOfProducts);
+    return totalAmountOfProducts;
+
+    // Update total price of products before tax
+    // const totalPriceOfProductsBeforeTax = cart.products.forEach((product) => {
+    //   let resultTotalPriceOfProductsBeforeTax = 0;
+    //   console.log(product.price);
+    //   resultTotalPriceOfProductsBeforeTax += parseFloat(product.price);
+    //   return resultTotalPriceOfProductsBeforeTax;
+    // });
+    // dispatch(cartUpdateTotalPriceBeforeTax(totalPriceOfProductsBeforeTax));
+  };
+
+  const quantity = calculateCart();
+  console.log(quantity);
+
   return (
     <>
       <Wrapper>
@@ -69,7 +117,7 @@ const OneProduct = ({ ...product }) => {
             dispatch(addProductBeforeAddToCartReset());
             dispatch(addProductNameBeforeAddToCart(product.imageName));
             dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
-            dispatch(addProductIdBeforeAddToCart(product._id));
+            dispatch(addProductIdBeforeAddToCart(uuidv4()));
           }}
         >
           <Image
@@ -108,7 +156,7 @@ const OneProduct = ({ ...product }) => {
             dispatch(addProductBeforeAddToCartReset());
             dispatch(addProductNameBeforeAddToCart(product.imageName));
             dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
-            dispatch(addProductIdBeforeAddToCart(product._id));
+            dispatch(addProductIdBeforeAddToCart(uuidv4()));
           }}
         >
           Buy photo
@@ -189,6 +237,7 @@ const OneProduct = ({ ...product }) => {
                         name="image format"
                         required
                         onChange={(ev) => {
+                          console.log(ev.target.value);
                           dispatch(
                             addProductSizeBeforeAddToCart(
                               ev.target.value.replace(/[0-9]/g, "")
@@ -271,6 +320,7 @@ const OneProduct = ({ ...product }) => {
                   <ButtonAdd
                     disabled={!productInfo.paperType || !productInfo.size}
                     onClick={() => {
+                      createCartId();
                       dispatch(cartAddProduct(productInfo));
                     }}
                   >
@@ -369,7 +419,7 @@ const Type = styled.div`
 `;
 
 const Select = styled.select`
-  width: 125px;
+  width: 150px;
   border-bottom: 1px solid ${COLORS.grey};
   border-top: none;
   border-left: none;

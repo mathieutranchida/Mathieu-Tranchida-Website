@@ -3,10 +3,14 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, Transformation } from "cloudinary-react";
 
-const CartProducts = () => {
-  const cart = useSelector((state) => state.cartReducer);
+import {
+  cartRemoveProduct,
+  cartUpdateProductQuantity,
+} from "../../redux/actions";
 
-  console.log(cart);
+const CartProducts = () => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cartReducer);
 
   return (
     <>
@@ -19,15 +23,11 @@ const CartProducts = () => {
         ) : (
           <WrapperCart>
             {cart.products.map((product) => {
-              console.log(product);
               return (
                 <>
                   <ProductWrapper>
                     <ImageWrapper>
-                      <Image
-                        cloudName="dldqebddc"
-                        publicId={product.product.imageSrc}
-                      >
+                      <Image cloudName="dldqebddc" publicId={product.imageSrc}>
                         <Transformation
                           quality="100"
                           width="150"
@@ -39,22 +39,26 @@ const CartProducts = () => {
                     </ImageWrapper>
                     <InfoWrapper>
                       <Main>
-                        <ProductName>{product.product.name}</ProductName>
+                        <ProductName>{product.name}</ProductName>
                         <SecondLineWrapper>
                           <SecondLineInfo>
-                            Paper type: {product.product.paperType}
+                            Paper type: {product.paperType}
                           </SecondLineInfo>
-                          <SecondLineInfo>
-                            Size: {product.product.size}
-                          </SecondLineInfo>
+                          <SecondLineInfo>Size: {product.size}</SecondLineInfo>
                         </SecondLineWrapper>
-                        <Id>Product ID: {product.product._id}</Id>
+                        <Id>Product ID: {product._id}</Id>
                       </Main>
                       <Second>
                         <ChangeQuantityWrapper>
                           <QuantityWrapper>
                             <QuantityDescription>Quantity:</QuantityDescription>
-                            <QuantityInput>
+                            <QuantityInput
+                              onChange={(ev) => {
+                                dispatch(
+                                  cartUpdateProductQuantity(ev.target.value)
+                                );
+                              }}
+                            >
                               <QuantityInputOption value="1">
                                 1
                               </QuantityInputOption>
@@ -84,10 +88,16 @@ const CartProducts = () => {
                               </QuantityInputOption>
                             </QuantityInput>
                           </QuantityWrapper>
-                          <RemoveButton>Remove</RemoveButton>
+                          <RemoveButton
+                            onClick={() => {
+                              dispatch(cartRemoveProduct(product._id));
+                            }}
+                          >
+                            Remove
+                          </RemoveButton>
                         </ChangeQuantityWrapper>
                         <ProductPriceWrapper>
-                          CAD$ {product.product.price}.00
+                          CAD$ {product.price}.00
                         </ProductPriceWrapper>
                       </Second>
                     </InfoWrapper>
