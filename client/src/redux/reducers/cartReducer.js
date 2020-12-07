@@ -1,5 +1,30 @@
 const initialState = {
-  products: [],
+  products: [
+    //remove
+    {
+      product: {
+        name: "Classic LDM blunt sur muraille",
+        imageSrc: "qazdsao0hlv8mn4ayzh7",
+        _id: "5fc8003e1a4fc743e82db183",
+        paperType: "glossy",
+        size: "tenByFifteenInches",
+        quantity: "1",
+        price: "35",
+      },
+    },
+    {
+      product: {
+        name: "OnSite Sunrise",
+        imageSrc: "eu1all1cpqcfqfncpwpd",
+        _id: "5fc8019b1a4fc743e82db184",
+        paperType: "matte",
+        size: "eightByTwelveInches",
+        quantity: "1",
+        price: "25",
+      },
+    },
+    //end remove
+  ],
   totalAmountOfProducts: null,
   totalPriceBeforeTax: null,
   tax: null,
