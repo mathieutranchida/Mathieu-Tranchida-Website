@@ -1,5 +1,10 @@
 {
-  "numberOfProducts": 0,
   "products": [],
-  "totalPrice": 0
+  "totalAmountOfProducts": null,
+  "totalPriceBeforeTax": null,
+  "gst": null,
+  "qst": null,
+  "totalPriceAfterTax": null,
+  "shipping": null,
+  "cartTotalFinal": null
 }

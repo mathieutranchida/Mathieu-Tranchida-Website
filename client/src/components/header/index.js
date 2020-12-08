@@ -17,6 +17,7 @@ const Header = () => {
           <Link to="/blog">Blog</Link>
           <Link to="/rates">Rates</Link>
           <Link to="/store">Store</Link>
+          <Link to="/cart">Cart</Link>
         </Nav>
       </Wrapper>
     </>
@@ -43,7 +44,7 @@ const Nav = styled.nav`
   align-items: center;
   padding: 4px;
   box-shadow: 0px 0px 10px 0px ${COLORS.dropShadow};
-  width: 315px;
+  width: 375px;
   text-transform: uppercase;
   font-size: 13px;
   font-family: sweet-sans-pro, sans-serif;

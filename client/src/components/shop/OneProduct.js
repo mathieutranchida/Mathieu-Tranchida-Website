@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Image, Transformation } from "cloudinary-react";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -21,7 +22,8 @@ import {
   addProductPriceBeforeAddToCart,
   addProductBeforeAddToCartReset,
 } from "../../redux/actions";
-import { cartAddProduct } from "../../redux/actions";
+
+import { cartAddProduct, cartUpdateCartId } from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -60,6 +62,32 @@ const OneProduct = ({ ...product }) => {
     (state) => state.productBeforeAddToCartReducer
   );
 
+  const cart = useSelector((state) => state.cartReducer);
+
+  const createCartId = () => {
+    const storedCardId = localStorage.getItem("mtCartId");
+    if (!storedCardId) {
+      const _id = uuidv4();
+      localStorage.setItem("mtCartId", _id);
+      console.log(cart);
+      fetch("/add-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...cart, _id }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          dispatch(cartUpdateCartId(data._id));
+        });
+    } else {
+      dispatch(cartUpdateCartId(storedCardId));
+    }
+  };
+
   return (
     <>
       <Wrapper>
@@ -69,7 +97,7 @@ const OneProduct = ({ ...product }) => {
             dispatch(addProductBeforeAddToCartReset());
             dispatch(addProductNameBeforeAddToCart(product.imageName));
             dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
-            dispatch(addProductIdBeforeAddToCart(product._id));
+            dispatch(addProductIdBeforeAddToCart(uuidv4()));
           }}
         >
           <Image
@@ -108,7 +136,7 @@ const OneProduct = ({ ...product }) => {
             dispatch(addProductBeforeAddToCartReset());
             dispatch(addProductNameBeforeAddToCart(product.imageName));
             dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
-            dispatch(addProductIdBeforeAddToCart(product._id));
+            dispatch(addProductIdBeforeAddToCart(uuidv4()));
           }}
         >
           Buy photo
@@ -272,6 +300,7 @@ const OneProduct = ({ ...product }) => {
                     disabled={!productInfo.paperType || !productInfo.size}
                     onClick={() => {
                       dispatch(cartAddProduct(productInfo));
+                      createCartId();
                     }}
                   >
                     Add to cart
@@ -369,7 +398,7 @@ const Type = styled.div`
 `;
 
 const Select = styled.select`
-  width: 125px;
+  width: 150px;
   border-bottom: 1px solid ${COLORS.grey};
   border-top: none;
   border-left: none;

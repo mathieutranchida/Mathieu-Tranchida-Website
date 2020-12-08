@@ -13,6 +13,7 @@ import Rates from "./components/rates/index";
 import Testimonies from "./components/testimonies/index";
 import Login from "./components/login/index";
 import CreateAccount from "./components/login/CreateAccount";
+import Cart from "./components/cart/index";
 
 // Admin interface
 import Admin from "./components/admin/index";
@@ -31,10 +32,12 @@ import AllUsers from "./components/admin/adminPages/users/AllUsers";
 // Custom hook call imports
 import useFetchAllProducts from "./customHooks/useFetchAllProducts";
 import useFetchPriceList from "./customHooks/useFetchPriceList";
+// import useCartId from "./customHooks/useCartId";
 
 const App = () => {
   useFetchAllProducts();
   useFetchPriceList();
+  // useCartId();
 
   return (
     <>
@@ -61,6 +64,10 @@ const App = () => {
             <Route path="/testimonies">
               <Header />
               <Testimonies />
+            </Route>
+            <Route path="/cart">
+              <Header />
+              <Cart />
             </Route>
 
             {/* --------------------AUTHENTICATION------------------ */}

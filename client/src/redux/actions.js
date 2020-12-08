@@ -149,9 +149,39 @@ export const receivePriceListError = () => ({
 
 // CART ------------------------------------------
 // Add product to cart
+export const cartUpdateCartId = (_id) => ({
+  type: "CART_UPDATE_CART_ID",
+  _id,
+});
+
 export const cartAddProduct = (product) => ({
   type: "CART_ADD_PRODUCT",
   product,
+});
+
+export const cartRemoveProduct = (product) => ({
+  type: "CART_REMOVE_PRODUCT",
+  product,
+});
+
+export const cartUpdateProductQuantity = (product) => ({
+  type: "CART_UPDATE_PRODUCT_QUANTITY",
+  product,
+});
+
+export const cartUpdateShippingOption = (shippingOption) => ({
+  type: "CART_UPDATE_SHIPPING_OPTION",
+  shippingOption,
+});
+
+export const cartUpdateShippingCost = (shippingCost) => ({
+  type: "CART_UPDATE_SHIPPING_COST",
+  shippingCost,
+});
+
+export const cartUpdateTotalFinal = (cartTotalFinal) => ({
+  type: "CART_UPDATE_TOTAL_FINAL",
+  cartTotalFinal,
 });
 
 export const requestCart = () => ({
