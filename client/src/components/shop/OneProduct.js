@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Image, Transformation } from "cloudinary-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,12 +23,7 @@ import {
   addProductBeforeAddToCartReset,
 } from "../../redux/actions";
 
-import {
-  cartAddProduct,
-  cartUpdateCartId,
-  cartUpdateTotalAmountOfProducts,
-  cartUpdateTotalPriceBeforeTax,
-} from "../../redux/actions";
+import { cartAddProduct, cartUpdateCartId } from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -68,45 +63,27 @@ const OneProduct = ({ ...product }) => {
   );
 
   const cart = useSelector((state) => state.cartReducer);
-  // console.log(cart);
 
   const createCartId = () => {
-    if (!localStorage.mtCartId) {
-      localStorage.setItem("mtCartId", uuidv4());
-      dispatch(cartUpdateCartId(localStorage.getItem("mtCartId")));
+    if (!localStorage.getItem("mtCartId")) {
+      const id = uuidv4();
+      dispatch(cartUpdateCartId(id));
+      localStorage.setItem("mtCartId", id);
+      console.log(cart);
+      {
+        cart.id &&
+          fetch("/add-cart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(cart),
+          });
+      }
     } else {
       dispatch(cartUpdateCartId(localStorage.getItem("mtCartId")));
     }
   };
-
-  const calculateCart = () => {
-    // Update amount of products in the cart
-    // const totalAmountOfProducts = cart.products.forEach((product) => {
-    //   let resultTotalAmountOfProducts = 0;
-    //   console.log(product.quantity);
-    //   resultTotalAmountOfProducts += parseFloat(product.quantity);
-    //   return resultTotalAmountOfProducts;
-    // });
-    // dispatch(cartUpdateTotalAmountOfProducts(totalAmountOfProducts));
-    const totalAmountOfProducts = cart.products.reduce((acc, product) => {
-      return acc + parseFloat(product.quantity);
-    }, 0);
-    // console.log(cart.products);
-    // console.log(totalAmountOfProducts);
-    return totalAmountOfProducts;
-
-    // Update total price of products before tax
-    // const totalPriceOfProductsBeforeTax = cart.products.forEach((product) => {
-    //   let resultTotalPriceOfProductsBeforeTax = 0;
-    //   console.log(product.price);
-    //   resultTotalPriceOfProductsBeforeTax += parseFloat(product.price);
-    //   return resultTotalPriceOfProductsBeforeTax;
-    // });
-    // dispatch(cartUpdateTotalPriceBeforeTax(totalPriceOfProductsBeforeTax));
-  };
-
-  const quantity = calculateCart();
-  console.log(quantity);
 
   return (
     <>
@@ -237,7 +214,6 @@ const OneProduct = ({ ...product }) => {
                         name="image format"
                         required
                         onChange={(ev) => {
-                          console.log(ev.target.value);
                           dispatch(
                             addProductSizeBeforeAddToCart(
                               ev.target.value.replace(/[0-9]/g, "")
@@ -320,8 +296,8 @@ const OneProduct = ({ ...product }) => {
                   <ButtonAdd
                     disabled={!productInfo.paperType || !productInfo.size}
                     onClick={() => {
-                      createCartId();
                       dispatch(cartAddProduct(productInfo));
+                      createCartId();
                     }}
                   >
                     Add to cart

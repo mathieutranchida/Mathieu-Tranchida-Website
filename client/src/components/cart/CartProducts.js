@@ -105,7 +105,7 @@ const CartProducts = () => {
                 </>
               );
             })}
-            <TotalPrice>Total: CAD$ TODO</TotalPrice>
+            <TotalPrice>Total: CAD$ {cart.totalPriceBeforeTax}.00</TotalPrice>
           </WrapperCart>
         )}
       </Wrapper>

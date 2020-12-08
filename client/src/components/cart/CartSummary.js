@@ -1,40 +1,100 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+
+import Checkout from "./Checkout";
+import {
+  cartUpdateShippingOption,
+  cartUpdateShippingCost,
+} from "../../redux/actions";
 
 const CartSummary = () => {
+  const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cartReducer);
+
+  let roundedGst = Math.round(cart.gst * 100) / 100;
+  let roundedQst = Math.round(cart.qst * 100) / 100;
+  let roundedFinalPrice = Math.round(cart.cartTotalFinal * 100) / 100;
+
   return (
     <>
       <Wrapper>
         <Header>Cart summary</Header>
         <TotalWrapper>
           <Type>Total:</Type>
-          <Total>CAD$ TODO</Total>
+          <Total>
+            {cart.totalPriceBeforeTax > 0 &&
+              `CAD$ ${cart.totalPriceBeforeTax}.00`}
+          </Total>
         </TotalWrapper>
         <TaxWrapper>
           <Type>Taxes:</Type>
-          <Tax>GST (5%): </Tax>
-          <Tax>QST (9.975%): </Tax>
+          <Tax>GST (5%): {cart.gst > 0 && `$${roundedGst}`}</Tax>
+          <Tax>QST (9.975%): {cart.qst > 0 && `$${roundedQst}`}</Tax>
         </TaxWrapper>
         <ShippingForm>
           <Type>Select shipping type:</Type>
           <InputRadioDiv>
-            <InputRadio type="radio" name="shipping type" value="in person" />
+            <InputRadio
+              type="radio"
+              name="shipping type"
+              value="inperson0"
+              onChange={(ev) => {
+                dispatch(
+                  cartUpdateShippingOption(
+                    ev.target.value.replace(/[0-9]/g, "")
+                  )
+                );
+                dispatch(
+                  cartUpdateShippingCost(ev.target.value.replace(/\D/g, ""))
+                );
+              }}
+            />
             <Label>In person (Montreal only) - Free</Label>
           </InputRadioDiv>
           <InputRadioDiv>
-            <InputRadio type="radio" name="shipping type" value="canada" />
+            <InputRadio
+              type="radio"
+              name="shipping type"
+              value="canada15"
+              onChange={(ev) => {
+                dispatch(
+                  cartUpdateShippingOption(
+                    ev.target.value.replace(/[0-9]/g, "")
+                  )
+                );
+                dispatch(
+                  cartUpdateShippingCost(ev.target.value.replace(/\D/g, ""))
+                );
+              }}
+            />
             <Label>Canada - CAD$ 15.00</Label>
           </InputRadioDiv>
           <InputRadioDiv>
-            <InputRadio type="radio" name="shipping type" value="worldwide" />
+            <InputRadio
+              type="radio"
+              name="shipping type"
+              value="worldwide30"
+              onChange={(ev) => {
+                dispatch(
+                  cartUpdateShippingOption(
+                    ev.target.value.replace(/[0-9]/g, "")
+                  )
+                );
+                dispatch(
+                  cartUpdateShippingCost(ev.target.value.replace(/\D/g, ""))
+                );
+              }}
+            />
             <Label>Worldwide - CAD$ 30.00</Label>
           </InputRadioDiv>
         </ShippingForm>
         <TotalFinalWrapper>
           <Type>Total + tax + shipping:</Type>
-          <Total>CAD$ TODO</Total>
+          <Total>CAD$ {roundedFinalPrice}</Total>
         </TotalFinalWrapper>
-        <Button>Checkout</Button>
+        <Checkout />{" "}
       </Wrapper>
     </>
   );
@@ -98,23 +158,6 @@ const Label = styled.label`
 
 const TotalFinalWrapper = styled.div`
   margin-top: 10px;
-`;
-
-const Button = styled.button`
-  margin-top: 25px;
-  background-color: transparent;
-  border: black 1px solid;
-  color: black;
-  padding: 15px;
-  &:hover:not([disabled]) {
-    background-color: black;
-    color: white;
-    cursor: pointer;
-  }
-  &:disabled {
-    border: grey 1px solid;
-    color: grey;
-  }
 `;
 
 export default CartSummary;

@@ -1,13 +1,14 @@
 const initialState = {
-  _id: null,
+  id: null,
   products: [],
-  totalAmountOfProducts: null,
-  totalPriceBeforeTax: null,
-  gst: null,
-  qst: null,
-  totalPriceAfterTax: null,
-  shipping: null,
-  cartTotalFinal: null,
+  totalAmountOfProducts: 0,
+  totalPriceBeforeTax: 0,
+  gst: 0,
+  qst: 0,
+  totalPriceAfterTax: 0,
+  shippingOption: "",
+  shippingCost: 0,
+  cartTotalFinal: 0,
   status: "idle",
 };
 
@@ -17,7 +18,7 @@ export default function cartReducer(state = initialState, action) {
     case "CART_UPDATE_CART_ID": {
       return {
         ...state,
-        _id: action._id,
+        id: action.id,
       };
     }
     case "CART_ADD_PRODUCT": {
@@ -28,26 +29,40 @@ export default function cartReducer(state = initialState, action) {
         },
         0
       );
+      newState.totalPriceBeforeTax = newState.products.reduce(
+        (acc, product) => {
+          return acc + parseFloat(product.price) * parseFloat(product.quantity);
+        },
+        0
+      );
+      newState.gst = newState.totalPriceBeforeTax * 0.05;
+      newState.qst = newState.totalPriceBeforeTax * 0.09975;
+      newState.totalPriceAfterTax =
+        newState.totalPriceBeforeTax + newState.gst + newState.qst;
+      newState.cartTotalFinal =
+        newState.totalPriceAfterTax + newState.shippingCost;
       return newState;
-      // return {
-      //   ...state,
-      //   products: [...state.products, action.product],
-      // };
     }
     case "CART_REMOVE_PRODUCT": {
-      const stateCopy = { ...state };
-      const indexToRemove = stateCopy.products.findIndex(
+      const index = newState.products.findIndex(
         (product) => product._id === action.product
       );
-      if (indexToRemove !== -1) {
-        stateCopy.products.splice(indexToRemove, 1);
+      if (index !== -1) {
+        newState.totalAmountOfProducts =
+          newState.totalAmountOfProducts - newState.products[index].quantity;
+        newState.totalPriceBeforeTax =
+          newState.totalPriceBeforeTax -
+          newState.products[index].quantity * newState.products[index].price;
+        newState.gst = newState.totalPriceBeforeTax * 0.05;
+        newState.qst = newState.totalPriceBeforeTax * 0.09975;
+        newState.totalPriceAfterTax =
+          newState.totalPriceBeforeTax + newState.gst + newState.qst;
+        newState.cartTotalFinal =
+          newState.totalPriceAfterTax + newState.shippingCost;
+        newState.products.splice(index, 1);
         return {
-          ...stateCopy,
-          products: [...stateCopy.products],
-        };
-      } else {
-        return {
-          ...stateCopy,
+          ...newState,
+          products: [...newState.products],
         };
       }
     }
@@ -56,59 +71,37 @@ export default function cartReducer(state = initialState, action) {
         (product) => product._id === action.product
       );
       if (index !== -1) {
+        newState.totalAmountOfProducts =
+          newState.totalAmountOfProducts - newState.products[index].quantity;
+        newState.totalAmountOfProducts =
+          newState.totalAmountOfProducts + newState.products[index].quantity;
+        newState.totalPriceBeforeTax =
+          newState.totalPriceBeforeTax -
+          newState.products[index].quantity * newState.products[index].price;
+        newState.totalPriceBeforeTax =
+          newState.totalPriceBeforeTax +
+          newState.products[index].quantity * newState.products[index].price;
+        newState.gst = newState.totalPriceBeforeTax * 0.05;
+        newState.qst = newState.totalPriceBeforeTax * 0.09975;
+        newState.totalPriceAfterTax =
+          newState.totalPriceBeforeTax + newState.gst + newState.qst;
         newState.products[index].quantity = action.product.quantity;
+        newState.cartTotalFinal =
+          newState.totalPriceAfterTax + newState.shippingCost;
       }
       return newState;
     }
-    //   const stateCopy = { ...state };
-    //   const indexToChange = stateCopy.products.findIndex(
-    //     (product) => product._id === action.product
-    //   );
-    //   if (indexToChange !== -1) {
-    //     return {
-    //       ...stateCopy,
-    //     };
-    //   } else {
-    //     return {
-    //       ...stateCopy,
-    //     };
-    //   }
-    // }
-    case "CART_UPDATE_TOTAL_AMOUNT_OF_PRODUCTS": {
+    case "CART_UPDATE_SHIPPING_OPTION": {
       return {
         ...state,
-        totalAmountOfProducts: action.totalAmountOfProducts,
+        shippingOption: action.shippingOption,
       };
     }
-    case "CART_UPDATE_TOTAL_PRICE_BEFORE_TAX": {
-      return {
-        ...state,
-        totalPriceBeforeTax: action.totalPriceBeforeTax,
-      };
-    }
-    case "CART_UPDATE_GST": {
-      return {
-        ...state,
-        gst: action.gst,
-      };
-    }
-    case "CART_UPDATE_QST": {
-      return {
-        ...state,
-        qst: action.qst,
-      };
-    }
-    case "CART_UPDATE_TOTAL_PRICE_AFTER_TAX": {
-      return {
-        ...state,
-        totalPriceAfterTax: action.totalPriceAfterTax,
-      };
-    }
-    case "CART_UPDATE_SHIPPING": {
-      return {
-        ...state,
-        shipping: action.shipping,
-      };
+    case "CART_UPDATE_SHIPPING_COST": {
+      newState.shippingCost = parseFloat(action.shippingCost);
+      newState.cartTotalFinal =
+        newState.shippingCost + newState.totalPriceAfterTax;
+      return newState;
     }
     case "CART_UPDATE_TOTAL_FINAL": {
       return {
