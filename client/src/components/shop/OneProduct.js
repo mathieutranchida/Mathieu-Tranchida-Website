@@ -65,23 +65,26 @@ const OneProduct = ({ ...product }) => {
   const cart = useSelector((state) => state.cartReducer);
 
   const createCartId = () => {
-    if (!localStorage.getItem("mtCartId")) {
-      const id = uuidv4();
-      dispatch(cartUpdateCartId(id));
-      localStorage.setItem("mtCartId", id);
+    const storedCardId = localStorage.getItem("mtCartId");
+    if (!storedCardId) {
+      const _id = uuidv4();
+      localStorage.setItem("mtCartId", _id);
       console.log(cart);
-      {
-        cart.id &&
-          fetch("/add-cart", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(cart),
-          });
-      }
+      fetch("/add-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...cart, _id }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          dispatch(cartUpdateCartId(data._id));
+        });
     } else {
-      dispatch(cartUpdateCartId(localStorage.getItem("mtCartId")));
+      dispatch(cartUpdateCartId(storedCardId));
     }
   };
 

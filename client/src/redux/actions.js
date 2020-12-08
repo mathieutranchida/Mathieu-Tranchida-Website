@@ -149,9 +149,9 @@ export const receivePriceListError = () => ({
 
 // CART ------------------------------------------
 // Add product to cart
-export const cartUpdateCartId = (id) => ({
+export const cartUpdateCartId = (_id) => ({
   type: "CART_UPDATE_CART_ID",
-  id,
+  _id,
 });
 
 export const cartAddProduct = (product) => ({

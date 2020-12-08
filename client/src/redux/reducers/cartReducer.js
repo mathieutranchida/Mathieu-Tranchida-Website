@@ -1,5 +1,5 @@
 const initialState = {
-  id: null,
+  _id: null,
   products: [],
   totalAmountOfProducts: 0,
   totalPriceBeforeTax: 0,
@@ -18,7 +18,7 @@ export default function cartReducer(state = initialState, action) {
     case "CART_UPDATE_CART_ID": {
       return {
         ...state,
-        id: action.id,
+        _id: action._id,
       };
     }
     case "CART_ADD_PRODUCT": {
@@ -40,7 +40,9 @@ export default function cartReducer(state = initialState, action) {
       newState.totalPriceAfterTax =
         newState.totalPriceBeforeTax + newState.gst + newState.qst;
       newState.cartTotalFinal =
-        newState.totalPriceAfterTax + newState.shippingCost;
+        Math.round(
+          (newState.totalPriceAfterTax + newState.shippingCost) * 100
+        ) / 100;
       return newState;
     }
     case "CART_REMOVE_PRODUCT": {
@@ -58,7 +60,9 @@ export default function cartReducer(state = initialState, action) {
         newState.totalPriceAfterTax =
           newState.totalPriceBeforeTax + newState.gst + newState.qst;
         newState.cartTotalFinal =
-          newState.totalPriceAfterTax + newState.shippingCost;
+          Math.round(
+            (newState.totalPriceAfterTax + newState.shippingCost) * 100
+          ) / 100;
         newState.products.splice(index, 1);
         return {
           ...newState,
@@ -87,7 +91,9 @@ export default function cartReducer(state = initialState, action) {
           newState.totalPriceBeforeTax + newState.gst + newState.qst;
         newState.products[index].quantity = action.product.quantity;
         newState.cartTotalFinal =
-          newState.totalPriceAfterTax + newState.shippingCost;
+          Math.round(
+            (newState.totalPriceAfterTax + newState.shippingCost) * 100
+          ) / 100;
       }
       return newState;
     }
