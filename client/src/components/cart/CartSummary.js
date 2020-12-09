@@ -1,21 +1,34 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Checkout from "./Checkout";
-import {
-  cartUpdateShippingOption,
-  cartUpdateShippingCost,
-} from "../../redux/actions";
 
 const CartSummary = () => {
-  const dispatch = useDispatch();
-
   const cart = useSelector((state) => state.cartReducer);
-
   let roundedGst = Math.round(cart.gst * 100) / 100;
   let roundedQst = Math.round(cart.qst * 100) / 100;
   let roundedFinalPrice = Math.round(cart.cartTotalFinal * 100) / 100;
+
+  const updateShipping = (shippingOption, shippingCost) => {
+    let newCart = { ...cart };
+    newCart.shippingOption = "";
+    newCart.shippingOption = shippingOption;
+    newCart.shippingCost = parseFloat(shippingCost);
+    newCart.cartTotalFinal =
+      Math.round((newCart.totalPriceAfterTax + newCart.shippingCost) * 100) /
+      100;
+    console.log(newCart);
+    fetch(`/modify-cart/${newCart._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newCart),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        document.location.reload();
+      });
+  };
 
   return (
     <>
@@ -40,14 +53,11 @@ const CartSummary = () => {
               type="radio"
               name="shipping type"
               value="inperson0"
+              checked={cart.shippingOption === "inperson"}
               onChange={(ev) => {
-                dispatch(
-                  cartUpdateShippingOption(
-                    ev.target.value.replace(/[0-9]/g, "")
-                  )
-                );
-                dispatch(
-                  cartUpdateShippingCost(ev.target.value.replace(/\D/g, ""))
+                updateShipping(
+                  ev.target.value.replace(/[0-9]/g, ""),
+                  ev.target.value.replace(/\D/g, "")
                 );
               }}
             />
@@ -58,14 +68,11 @@ const CartSummary = () => {
               type="radio"
               name="shipping type"
               value="canada15"
+              checked={cart.shippingOption === "canada"}
               onChange={(ev) => {
-                dispatch(
-                  cartUpdateShippingOption(
-                    ev.target.value.replace(/[0-9]/g, "")
-                  )
-                );
-                dispatch(
-                  cartUpdateShippingCost(ev.target.value.replace(/\D/g, ""))
+                updateShipping(
+                  ev.target.value.replace(/[0-9]/g, ""),
+                  ev.target.value.replace(/\D/g, "")
                 );
               }}
             />
@@ -76,14 +83,11 @@ const CartSummary = () => {
               type="radio"
               name="shipping type"
               value="worldwide30"
+              checked={cart.shippingOption === "worldwide"}
               onChange={(ev) => {
-                dispatch(
-                  cartUpdateShippingOption(
-                    ev.target.value.replace(/[0-9]/g, "")
-                  )
-                );
-                dispatch(
-                  cartUpdateShippingCost(ev.target.value.replace(/\D/g, ""))
+                updateShipping(
+                  ev.target.value.replace(/[0-9]/g, ""),
+                  ev.target.value.replace(/\D/g, "")
                 );
               }}
             />

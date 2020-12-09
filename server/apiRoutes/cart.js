@@ -23,7 +23,7 @@ const getCartById = async (req, res) => {
   const db = client.db("mtwebsite");
   console.log("connected!");
 
-  const _id = req.params._id;
+  const _id = ObjectId(req.params._id);
   console.log(_id);
 
   db.collection("carts").findOne({ _id }, (err, result) => {
@@ -68,9 +68,9 @@ const modifyCart = async (req, res) => {
     const db = client.db("mtwebsite");
     console.log("connected!");
 
-    const _id = req.params._id;
+    const _id = ObjectId(req.params._id);
     console.log(_id);
-    const query = { _id: _id };
+    const query = { _id: ObjectId(req.params._id) };
     const newValues = {
       $set: {
         products: req.body.products,
@@ -79,14 +79,15 @@ const modifyCart = async (req, res) => {
         gst: req.body.gst,
         qst: req.body.qst,
         totalPriceAfterTax: req.body.totalPriceAfterTax,
-        shipping: req.body.shipping,
+        shippingOption: req.body.shippingOption,
+        shippingCost: req.body.shippingCost,
         cartTotalFinal: req.body.cartTotalFinal,
       },
     };
-    console.log(req.body);
+    console.log("reqbody", req.body);
 
-    const result = await db.collection("cart").updateOne(query, newValues);
-    // console.log(result);
+    const result = await db.collection("carts").updateOne(query, newValues);
+    console.log("dsad", result);
     assert.equal(1, result.matchedCount);
     assert.equal(1, result.modifiedCount);
 
@@ -112,9 +113,9 @@ const deleteCart = async (req, res) => {
     const db = client.db("mtwebsite");
     console.log("connected!");
 
-    const _id = req.params._id;
+    const _id = ObjectId(req.params._id);
 
-    const result = await db.collection("cart").deleteOne({ _id });
+    const result = await db.collection("carts").deleteOne({ _id });
     // console.log(result);
 
     assert.equal(1, result.deletedCount);
