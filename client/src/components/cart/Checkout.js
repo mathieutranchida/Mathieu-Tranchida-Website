@@ -14,7 +14,7 @@ const Checkout = () => {
   const [product] = React.useState({
     name: `Cart`,
     price: `${cart.cartTotalFinal}`,
-    description: `${cart}`,
+    description: `Cart ID: ${cart._id}`,
   });
 
   async function handleToken(token, addresses) {
@@ -22,15 +22,11 @@ const Checkout = () => {
       token,
       product,
     });
-    const { status } = response.data;
-    if (status === "success") {
-      toast("The payment was successful! Check your emails for more details.", {
-        type: "success",
-      });
+    const status = response;
+    if (status.data === "success") {
+      console.log(status);
     } else {
-      toast("The payment was not successful. Please try again.", {
-        type: "error",
-      });
+      console.log(status);
     }
   }
   return (
@@ -43,6 +39,7 @@ const Checkout = () => {
           shippingAddress
           amount={product.price * 100}
           name={product.name}
+          description={product.description}
           currency="CAD"
         />
       </Wrapper>
