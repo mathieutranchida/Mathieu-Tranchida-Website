@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Image, Transformation } from "cloudinary-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,31 +61,35 @@ const OneProduct = ({ ...product }) => {
   const productInfo = useSelector(
     (state) => state.productBeforeAddToCartReducer
   );
+  const oldCart = useSelector((state) => state.cartReducer);
 
-  const cart = useSelector((state) => state.cartReducer);
-
-  const createCartId = () => {
-    const storedCardId = localStorage.getItem("mtCartId");
-    if (!storedCardId) {
-      const _id = uuidv4();
-      localStorage.setItem("mtCartId", _id);
-      console.log(cart);
-      fetch("/add-cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...cart, _id }),
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          dispatch(cartUpdateCartId(data._id));
-        });
-    } else {
-      dispatch(cartUpdateCartId(storedCardId));
-    }
+  const addToCart = () => {
+    let newCart = { ...oldCart };
+    newCart.products = [...newCart.products, productInfo];
+    newCart.totalAmountOfProducts = newCart.products.reduce((acc, product) => {
+      return acc + parseFloat(product.quantity);
+    }, 0);
+    newCart.totalPriceBeforeTax = newCart.products.reduce((acc, product) => {
+      return acc + parseFloat(product.price) * parseFloat(product.quantity);
+    }, 0);
+    newCart.gst = newCart.totalPriceBeforeTax * 0.05;
+    newCart.qst = newCart.totalPriceBeforeTax * 0.09975;
+    newCart.totalPriceAfterTax =
+      newCart.totalPriceBeforeTax + newCart.gst + newCart.qst;
+    newCart.cartTotalFinal =
+      Math.round((newCart.totalPriceAfterTax + newCart.shippingCost) * 100) /
+      100;
+    console.log(newCart);
+    fetch(`/modify-cart/${newCart._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newCart),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(cartAddProduct(productInfo));
+      });
   };
 
   return (
@@ -299,8 +303,7 @@ const OneProduct = ({ ...product }) => {
                   <ButtonAdd
                     disabled={!productInfo.paperType || !productInfo.size}
                     onClick={() => {
-                      dispatch(cartAddProduct(productInfo));
-                      createCartId();
+                      addToCart();
                     }}
                   >
                     Add to cart

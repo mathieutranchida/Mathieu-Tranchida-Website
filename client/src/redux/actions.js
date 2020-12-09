@@ -1,3 +1,6 @@
+// import { useDispatch, useSelector } from "react-redux";
+// import { v4 as uuidv4 } from "uuid";
+
 // USER -------------------------------------------
 // Create user info state
 export const updateAccountName = (data) => ({
@@ -159,25 +162,29 @@ export const cartAddProduct = (product) => ({
   product,
 });
 
-export const cartRemoveProduct = (product) => ({
-  type: "CART_REMOVE_PRODUCT",
-  product,
-});
+// export const cartRemoveProduct = (product) => ({
+//   type: "CART_REMOVE_PRODUCT",
+//   product,
+// });
 
-export const cartUpdateProductQuantity = (product) => ({
-  type: "CART_UPDATE_PRODUCT_QUANTITY",
-  product,
-});
+// export const cartUpdateProductQuantity = (product, quantity) => {
+//   console.log(product, quantity);
+//   return {
+//     type: "CART_UPDATE_PRODUCT_QUANTITY",
+//     product,
+//     quantity,
+//   };
+// };
 
-export const cartUpdateShippingOption = (shippingOption) => ({
-  type: "CART_UPDATE_SHIPPING_OPTION",
-  shippingOption,
-});
+// export const cartUpdateShippingOption = (shippingOption) => ({
+//   type: "CART_UPDATE_SHIPPING_OPTION",
+//   shippingOption,
+// });
 
-export const cartUpdateShippingCost = (shippingCost) => ({
-  type: "CART_UPDATE_SHIPPING_COST",
-  shippingCost,
-});
+// export const cartUpdateShippingCost = (shippingCost) => ({
+//   type: "CART_UPDATE_SHIPPING_COST",
+//   shippingCost,
+// });
 
 export const cartUpdateTotalFinal = (cartTotalFinal) => ({
   type: "CART_UPDATE_TOTAL_FINAL",

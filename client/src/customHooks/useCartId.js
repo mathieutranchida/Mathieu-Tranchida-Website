@@ -1,21 +1,51 @@
-// import { useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { v4 as uuidv4 } from "uuid";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-// import { cartUpdateCartId } from "../redux/actions";
+import {
+  cartUpdateCartId,
+  receiveCart,
+  requestCart,
+  requestCartError,
+} from "../redux/actions";
 
-// const useCartId = () => {
-//   const dispatch = useDispatch();
+const useCartId = () => {
+  const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     if (!localStorage.getItem("mtCartId")) {
-//       const id = uuidv4();
-//       dispatch(cartUpdateCartId(id));
-//       localStorage.setItem("mtCartId", id);
-//     } else {
-//       dispatch(cartUpdateCartId(localStorage.getItem("mtCartId")));
-//     }
-//   }, []);
-// };
+  const cart = useSelector((state) => state.cartReducer);
 
-// export default useCartId;
+  useEffect(() => {
+    if (!localStorage.getItem("mtCartId")) {
+      fetch("/add-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...cart }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          localStorage.setItem("mtCartId", data.data._id);
+          dispatch(cartUpdateCartId(data.data._id));
+        });
+    } else {
+      const _id = localStorage.getItem("mtCartId");
+      dispatch(requestCart());
+      fetch(`/cart/${_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch(receiveCart(data.data));
+        })
+        .catch(dispatch(requestCartError()));
+    }
+  }, []);
+};
+
+export default useCartId;

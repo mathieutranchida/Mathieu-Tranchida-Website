@@ -1,16 +1,79 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Image, Transformation } from "cloudinary-react";
 
-import {
-  cartRemoveProduct,
-  cartUpdateProductQuantity,
-} from "../../redux/actions";
-
 const CartProducts = () => {
-  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cartReducer);
+
+  const removeFromCart = (productId) => {
+    let newCart = { ...cart };
+    const index = newCart.products.findIndex(
+      (product) => product._id === productId
+    );
+    if (index !== -1) {
+      newCart.totalAmountOfProducts =
+        newCart.totalAmountOfProducts - newCart.products[index].quantity;
+      newCart.totalPriceBeforeTax =
+        newCart.totalPriceBeforeTax -
+        newCart.products[index].quantity * newCart.products[index].price;
+      newCart.gst = newCart.totalPriceBeforeTax * 0.05;
+      newCart.qst = newCart.totalPriceBeforeTax * 0.09975;
+      newCart.totalPriceAfterTax =
+        newCart.totalPriceBeforeTax + newCart.gst + newCart.qst;
+      newCart.cartTotalFinal =
+        Math.round((newCart.totalPriceAfterTax + newCart.shippingCost) * 100) /
+        100;
+      newCart.products.splice(index, 1);
+      fetch(`/modify-cart/${newCart._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newCart),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          document.location.reload();
+        });
+    }
+  };
+
+  const updateQuantity = (productId, quantity) => {
+    let newCart = { ...cart };
+    const index = newCart.products.findIndex(
+      (product) => product._id === productId
+    );
+    if (index !== -1) {
+      newCart.totalAmountOfProducts =
+        newCart.totalAmountOfProducts - newCart.products[index].quantity;
+      newCart.totalPriceBeforeTax =
+        newCart.totalPriceBeforeTax -
+        newCart.products[index].quantity * newCart.products[index].price;
+      newCart.products[index].quantity = quantity;
+      newCart.totalAmountOfProducts =
+        newCart.totalAmountOfProducts + newCart.products[index].quantity;
+      newCart.totalPriceBeforeTax =
+        newCart.totalPriceBeforeTax +
+        newCart.products[index].quantity * newCart.products[index].price;
+      newCart.gst = newCart.totalPriceBeforeTax * 0.05;
+      newCart.qst = newCart.totalPriceBeforeTax * 0.09975;
+      newCart.totalPriceAfterTax =
+        newCart.totalPriceBeforeTax + newCart.gst + newCart.qst;
+      newCart.cartTotalFinal =
+        Math.round((newCart.totalPriceAfterTax + newCart.shippingCost) * 100) /
+        100;
+      fetch(`/modify-cart/${newCart._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newCart),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          document.location.reload();
+        });
+    }
+  };
 
   return (
     <>
@@ -23,6 +86,14 @@ const CartProducts = () => {
         ) : (
           <WrapperCart>
             {cart.products.map((product) => {
+              const quantity = product.quantity;
+              let sizeString1 = product.size.charAt(0).toUpperCase();
+              let sizeString2 = product.size
+                .slice(1)
+                .replace(/([a-z])([A-Z])/g, "$1 $2")
+                .toLowerCase();
+              let paperTypeString1 = product.paperType.charAt(0).toUpperCase();
+              let paperTypeString2 = product.paperType.slice(1);
               return (
                 <>
                   <ProductWrapper>
@@ -42,9 +113,13 @@ const CartProducts = () => {
                         <ProductName>{product.name}</ProductName>
                         <SecondLineWrapper>
                           <SecondLineInfo>
-                            Paper type: {product.paperType}
+                            Paper type: {paperTypeString1}
+                            {paperTypeString2}
                           </SecondLineInfo>
-                          <SecondLineInfo>Size: {product.size}</SecondLineInfo>
+                          <SecondLineInfo>
+                            Size: {sizeString1}
+                            {sizeString2}
+                          </SecondLineInfo>
                         </SecondLineWrapper>
                         <Id>Product ID: {product._id}</Id>
                       </Main>
@@ -54,43 +129,69 @@ const CartProducts = () => {
                             <QuantityDescription>Quantity:</QuantityDescription>
                             <QuantityInput
                               onChange={(ev) => {
-                                dispatch(
-                                  cartUpdateProductQuantity(ev.target.value)
-                                );
+                                console.log(ev.target.value);
+                                updateQuantity(product._id, ev.target.value);
                               }}
                             >
-                              <QuantityInputOption value="1">
+                              <QuantityInputOption
+                                value="1"
+                                selected={quantity === "1"}
+                              >
                                 1
                               </QuantityInputOption>
-                              <QuantityInputOption value="2">
+                              <QuantityInputOption
+                                value="2"
+                                selected={quantity === "2"}
+                              >
                                 2
                               </QuantityInputOption>
-                              <QuantityInputOption value="3">
+                              <QuantityInputOption
+                                value="3"
+                                selected={quantity === "3"}
+                              >
                                 3
                               </QuantityInputOption>
-                              <QuantityInputOption value="4">
+                              <QuantityInputOption
+                                value="4"
+                                selected={quantity === "4"}
+                              >
                                 4
                               </QuantityInputOption>
-                              <QuantityInputOption value="5">
+                              <QuantityInputOption
+                                value="5"
+                                selected={quantity === "5"}
+                              >
                                 5
                               </QuantityInputOption>
-                              <QuantityInputOption value="6">
+                              <QuantityInputOption
+                                value="6"
+                                selected={quantity === "6"}
+                              >
                                 6
                               </QuantityInputOption>
-                              <QuantityInputOption value="7">
+                              <QuantityInputOption
+                                value="7"
+                                selected={quantity === "7"}
+                              >
                                 7
                               </QuantityInputOption>
-                              <QuantityInputOption value="8">
+                              <QuantityInputOption
+                                value="8"
+                                selected={quantity === "8"}
+                              >
                                 8
                               </QuantityInputOption>
-                              <QuantityInputOption value="9">
+                              <QuantityInputOption
+                                value="9"
+                                selected={quantity === "9"}
+                              >
                                 9
                               </QuantityInputOption>
                             </QuantityInput>
                           </QuantityWrapper>
                           <RemoveButton
                             onClick={() => {
-                              dispatch(cartRemoveProduct(product._id));
+                              removeFromCart(product._id);
                             }}
                           >
                             Remove

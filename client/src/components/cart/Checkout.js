@@ -14,7 +14,7 @@ const Checkout = () => {
   const [product] = React.useState({
     name: `Cart`,
     price: `${cart.cartTotalFinal}`,
-    description: `Cart ID: ${cart._id}`,
+    description: `${cart}`,
   });
 
   async function handleToken(token, addresses) {
@@ -43,8 +43,7 @@ const Checkout = () => {
           shippingAddress
           amount={product.price * 100}
           name={product.name}
-          description={product.description}
-          currency="cad"
+          currency="CAD"
         />
       </Wrapper>
     </>

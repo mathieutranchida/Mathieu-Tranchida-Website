@@ -85,7 +85,7 @@ express()
   .post("/add-cart", postCart)
 
   // Add, modify, and delete a product in the cart
-  .patch("/modify-cart/:_id", modifyCart)
+  .put("/modify-cart/:_id", modifyCart)
 
   // Delete product from the cart
   .delete("/delete-cart/:_id", deleteCart)

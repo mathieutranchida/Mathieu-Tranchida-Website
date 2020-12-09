@@ -32,12 +32,12 @@ import AllUsers from "./components/admin/adminPages/users/AllUsers";
 // Custom hook call imports
 import useFetchAllProducts from "./customHooks/useFetchAllProducts";
 import useFetchPriceList from "./customHooks/useFetchPriceList";
-// import useCartId from "./customHooks/useCartId";
+import useCartId from "./customHooks/useCartId";
 
 const App = () => {
   useFetchAllProducts();
   useFetchPriceList();
-  // useCartId();
+  useCartId();
 
   return (
     <>
