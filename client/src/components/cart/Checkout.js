@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
@@ -6,17 +6,21 @@ import { toast } from "react-toastify";
 
 import { useSelector } from "react-redux";
 
-toast.configure();
-
 const Checkout = () => {
   const cart = useSelector((state) => state.cartReducer);
 
-  const [product] = React.useState({
+  const [product, setProduct] = React.useState({
     name: `Cart`,
     price: `${cart.cartTotalFinal}`,
     description: `Cart ID: ${cart._id}`,
   });
-
+  useEffect(() => {
+    setProduct({
+      name: `Cart`,
+      price: `${cart.cartTotalFinal}`,
+      description: `Cart ID: ${cart._id}`,
+    });
+  }, [cart]);
   async function handleToken(token, addresses) {
     const response = await axios.post("/checkout", {
       token,
@@ -29,20 +33,23 @@ const Checkout = () => {
       console.log(status);
     }
   }
+  console.log(cart);
   return (
     <>
-      <Wrapper>
-        <StripeCheckout
-          stripeKey="pk_test_51Hw8PXAwZOyDGXnzhCVOlURNYAyclZLyMBj2YZ9MaaPafGXe7cYZeMygOcpc8B2ijSje3pqzrQbI2PMZPlththTn00ViwvnXkT"
-          token={handleToken}
-          billingAddress
-          shippingAddress
-          amount={product.price * 100}
-          name={product.name}
-          description={product.description}
-          currency="CAD"
-        />
-      </Wrapper>
+      {cart._id && (
+        <Wrapper>
+          <StripeCheckout
+            stripeKey="pk_test_51Hw8PXAwZOyDGXnzhCVOlURNYAyclZLyMBj2YZ9MaaPafGXe7cYZeMygOcpc8B2ijSje3pqzrQbI2PMZPlththTn00ViwvnXkT"
+            token={handleToken}
+            billingAddress
+            shippingAddress
+            amount={product.price * 100}
+            name={product.name}
+            description={product.description}
+            currency="CAD"
+          />
+        </Wrapper>
+      )}
     </>
   );
 };

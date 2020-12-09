@@ -125,7 +125,7 @@ express()
         email: token.email,
         source: token.id,
       });
-
+      console.log(product);
       const idempotencyKey = uuidv4();
       const charge = await stripe.charges.create(
         {
