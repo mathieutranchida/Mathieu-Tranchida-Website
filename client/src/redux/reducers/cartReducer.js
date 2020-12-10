@@ -140,6 +140,21 @@ export default function cartReducer(state = initialState, action) {
         cartTotalFinal: action.data.cartTotalFinal,
       };
     }
+    case "RESET_CART": {
+      return {
+        ...state,
+        products: [],
+        totalAmountOfProducts: 0,
+        totalPriceBeforeTax: 0,
+        gst: 0,
+        qst: 0,
+        totalPriceAfterTax: 0,
+        shippingOption: "",
+        shippingCost: 0,
+        cartTotalFinal: 0,
+        status: "idle",
+      };
+    }
     case "RECEIVE_CART_ERROR": {
       return {
         ...state,

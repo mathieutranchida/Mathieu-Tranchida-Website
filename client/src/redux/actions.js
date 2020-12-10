@@ -203,3 +203,28 @@ export const receiveCart = (data) => ({
 export const requestCartError = () => ({
   type: "RECEIVE_CART_ERROR",
 });
+
+export const resetCart = () => ({
+  type: "RESET_CART",
+});
+
+// ORDERS ------------------------------------------
+// Order confirmations
+
+export const addOrderConfirmation = (order) => ({
+  type: "ADD_ORDER_CONFIRMATION",
+  order,
+});
+
+export const requestOrderConfirmation = () => ({
+  type: "REQUEST_ORDER_CONFIRMATION",
+});
+
+export const receiveOrderConfirmation = (order) => ({
+  type: "RECEIVE_ORDER_CONFIRMATION",
+  order,
+});
+
+export const receiveOrderConfirmationError = () => ({
+  type: "RECEIVE_ORDER_CONFIRMATION_ERROR",
+});

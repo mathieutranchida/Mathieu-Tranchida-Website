@@ -14,6 +14,8 @@ import Testimonies from "./components/testimonies/index";
 import Login from "./components/login/index";
 import CreateAccount from "./components/login/CreateAccount";
 import Cart from "./components/cart/index";
+import OrderConfirmation from "./components/orderConfirmation/index";
+import OrderError from "./components/errorPages/OrderError";
 
 // Admin interface
 import Admin from "./components/admin/index";
@@ -68,6 +70,14 @@ const App = () => {
             <Route path="/cart">
               <Header />
               <Cart />
+            </Route>
+            <Route path="/order-confirmation">
+              <Header />
+              <OrderConfirmation />
+            </Route>
+            <Route path="/order-error">
+              <Header />
+              <OrderError />
             </Route>
 
             {/* --------------------AUTHENTICATION------------------ */}

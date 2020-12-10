@@ -33,6 +33,8 @@ const {
   deleteCart,
 } = require("./apiRoutes/cart");
 
+const { getAllOrders, getOneOrder, createOrder } = require("./apiRoutes/order");
+
 const PORT = 4000;
 
 express()
@@ -95,6 +97,14 @@ express()
   .get("/price-lists", getPriceLists)
 
   // ORDER ENDPOINTS --------------------------------------------
+  // Get all orders
+  .get("/orders", getAllOrders)
+
+  // Get one order
+  .get("/order/:_id", getOneOrder)
+
+  // Post an order
+  .post("/post-order", createOrder)
 
   // USER ENDPOINTS ---------------------------------------------
   // Get all products
@@ -125,7 +135,7 @@ express()
         email: token.email,
         source: token.id,
       });
-
+      console.log(product);
       const idempotencyKey = uuidv4();
       const charge = await stripe.charges.create(
         {
