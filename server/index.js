@@ -33,7 +33,12 @@ const {
   deleteCart,
 } = require("./apiRoutes/cart");
 
-const { getAllOrders, getOneOrder, createOrder } = require("./apiRoutes/order");
+const {
+  getAllOrders,
+  getOneOrder,
+  createOrder,
+  changeOrderStatus,
+} = require("./apiRoutes/order");
 
 const PORT = 4000;
 
@@ -105,6 +110,9 @@ express()
 
   // Post an order
   .post("/post-order", createOrder)
+
+  // Change the status of an order
+  .put("/change-order-status/:_id", changeOrderStatus)
 
   // USER ENDPOINTS ---------------------------------------------
   // Get all products

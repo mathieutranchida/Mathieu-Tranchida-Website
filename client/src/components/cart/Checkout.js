@@ -5,11 +5,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addOrderConfirmation,
-  resetCart,
-  cartUpdateCartId,
-} from "../../redux/actions";
+import { addOrderConfirmation, resetCart } from "../../redux/actions";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cartReducer);
@@ -41,7 +37,12 @@ const Checkout = () => {
       const customerInfoString = response.config.data;
       let customerInfo = JSON.parse(customerInfoString);
       console.log(customerInfo);
-      let order = { customer: {}, cardInfo: {}, cart: {} };
+      let order = {
+        customer: {},
+        cardInfo: {},
+        cart: {},
+        status: { status: {} },
+      };
       order.customer.shippingName = customerInfo.addresses.shipping_name;
       order.customer.email = customerInfo.token.email;
       order.customer.shippingCountry =
@@ -78,6 +79,7 @@ const Checkout = () => {
         customerInfo.token.card.exp_year;
       order.cardInfo.type = customerInfo.token.card.brand;
       order.cart = cart;
+      order.status.status.status = "received";
 
       fetch("/post-order", {
         method: "POST",
@@ -113,13 +115,13 @@ const Checkout = () => {
           });
         });
     } else {
-      console.log(response);
+      history.push("/order-error");
     }
   }
 
   return (
     <>
-      {cart._id && (
+      {cart.products.length >= 1 && cart.shippingOption && cart._id && (
         <Wrapper>
           <StripeCheckout
             stripeKey="pk_test_51Hw8PXAwZOyDGXnzhCVOlURNYAyclZLyMBj2YZ9MaaPafGXe7cYZeMygOcpc8B2ijSje3pqzrQbI2PMZPlththTn00ViwvnXkT"

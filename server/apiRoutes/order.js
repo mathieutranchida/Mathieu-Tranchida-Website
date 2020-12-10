@@ -1,6 +1,3 @@
-// Import the cart
-const cart = require("../data/cart.json");
-
 // Database imports
 const { MongoClient, ObjectId } = require("mongodb");
 const assert = require("assert");
@@ -86,4 +83,41 @@ const createOrder = async (req, res) => {
   }
 };
 
-module.exports = { getAllOrders, getOneOrder, createOrder };
+// Add, modify, and delete a product to the cart - put
+const changeOrderStatus = async (req, res) => {
+  try {
+    const client = await MongoClient(MONGO_URI, options);
+
+    await client.connect();
+
+    const db = client.db("mtwebsite");
+    console.log("connected!");
+
+    const _id = ObjectId(req.params._id);
+    console.log(_id);
+    const query = { _id: ObjectId(req.params._id) };
+    const newValues = {
+      $set: {
+        status: req.body,
+      },
+    };
+    console.log("reqbody", req.body);
+
+    const result = await db.collection("orders").updateOne(query, newValues);
+    console.log("dsad", result);
+    assert.equal(1, result.matchedCount);
+    assert.equal(1, result.modifiedCount);
+
+    client.close();
+    console.log("disconnected!");
+
+    res.status(200).json({
+      status: 200,
+      data: { _id, result },
+    });
+  } catch (err) {
+    res.status(500).json({ status: 500, data: req.body, message: err.message });
+  }
+};
+
+module.exports = { getAllOrders, getOneOrder, createOrder, changeOrderStatus };

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Image, Transformation } from "cloudinary-react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { useHistory } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -44,6 +45,8 @@ const OneProduct = ({ ...product }) => {
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const handleOpen = () => {
     setOpen(true);
@@ -89,6 +92,7 @@ const OneProduct = ({ ...product }) => {
       .then((data) => {
         console.log(data);
         dispatch(cartAddProduct(productInfo));
+        history.push("/cart");
       });
   };
 

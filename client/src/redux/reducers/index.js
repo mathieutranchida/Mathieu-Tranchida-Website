@@ -7,6 +7,7 @@ import priceListReducer from "./priceListReducer";
 import productBeforeAddToCartReducer from "./productBeforeAddToCartReducer";
 import cartReducer from "./cartReducer";
 import orderConfirmationReducer from "./orderConfirmationReducer";
+import allOrdersReducer from "./allOrdersReducer";
 
 export default combineReducers({
   createUserReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   productBeforeAddToCartReducer,
   cartReducer,
   orderConfirmationReducer,
+  allOrdersReducer,
 });

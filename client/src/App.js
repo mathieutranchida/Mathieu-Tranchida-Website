@@ -35,11 +35,13 @@ import AllUsers from "./components/admin/adminPages/users/AllUsers";
 import useFetchAllProducts from "./customHooks/useFetchAllProducts";
 import useFetchPriceList from "./customHooks/useFetchPriceList";
 import useCartId from "./customHooks/useCartId";
+import useFetchAllOrders from "./customHooks/useFetchAllOrders";
 
 const App = () => {
   useFetchAllProducts();
   useFetchPriceList();
   useCartId();
+  useFetchAllOrders();
 
   return (
     <>
