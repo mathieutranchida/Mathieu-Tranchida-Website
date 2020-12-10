@@ -228,3 +228,22 @@ export const receiveOrderConfirmation = (order) => ({
 export const receiveOrderConfirmationError = () => ({
   type: "RECEIVE_ORDER_CONFIRMATION_ERROR",
 });
+
+// Get all orders
+export const requestAllOrders = () => ({
+  type: "REQUEST_ALL_ORDERS",
+});
+
+export const receiveAllOrders = (orders) => ({
+  type: "RECEIVE_ALL_ORDERS",
+  orders,
+});
+
+export const receiveAllOrdersError = () => ({
+  type: "RECEIVE_ALL_ORDERS_ERROR",
+});
+
+export const updateOrderStatus = (order) => ({
+  type: "UPDATE_ORDER_STATUS",
+  order,
+});

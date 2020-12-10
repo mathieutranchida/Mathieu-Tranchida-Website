@@ -44,6 +44,7 @@ const Wrapper = styled.div`
 
 const ErrorWrapper = styled.div`
   text-align: center;
+  padding: 25px;
 `;
 
 const ErrorTextWrapper = styled.div`

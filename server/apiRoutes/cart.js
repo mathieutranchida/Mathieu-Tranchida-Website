@@ -1,6 +1,3 @@
-// Import the cart
-const cart = require("../data/cart.json");
-
 // Database imports
 const { MongoClient, ObjectId } = require("mongodb");
 const assert = require("assert");
