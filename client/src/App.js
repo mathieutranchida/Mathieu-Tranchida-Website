@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import styled from "styled-components";
 
+import ProtectedRoute from "./ProtectedRoute";
+
 // User interface
 import Header from "./components/header/index";
 import Homepage from "./components/homepage/index";
@@ -16,20 +18,16 @@ import CreateAccount from "./components/login/CreateAccount";
 import Cart from "./components/cart/index";
 import OrderConfirmation from "./components/orderConfirmation/index";
 import OrderError from "./components/errorPages/OrderError";
+import NotAuth from "./components/errorPages/NotAuth";
 
 // Admin interface
-import Admin from "./components/admin/index";
 // Orders
 import AllOrders from "./components/admin/adminPages/orders/AllOrders";
 // Price list
-import AddPriceList from "./components/admin/adminPages/priceList/AddPriceList";
 import AllPriceLists from "./components/admin/adminPages/priceList/AllPriceLists";
 // Products
 import AddProduct from "./components/admin/adminPages/products/AddProduct";
 import AllProducts from "./components/admin/adminPages/products/AllProducts";
-// User
-import AddUser from "./components/admin/adminPages/users/AddUser";
-import AllUsers from "./components/admin/adminPages/users/AllUsers";
 
 // Custom hook call imports
 import useFetchAllProducts from "./customHooks/useFetchAllProducts";
@@ -81,6 +79,10 @@ const App = () => {
               <Header />
               <OrderError />
             </Route>
+            <Route path="/not-authorised">
+              <Header />
+              <NotAuth />
+            </Route>
 
             {/* --------------------AUTHENTICATION------------------ */}
             <Route path="/login">
@@ -91,38 +93,32 @@ const App = () => {
             </Route>
 
             {/* -----------------------ADMIN------------------------- */}
-            <Route exact path="/admin">
-              <Admin />
-            </Route>
-
             {/* -----------------------Orders------------------------- */}
-            <Route path="/admin/all-orders">
-              <AllOrders />
-            </Route>
+            <ProtectedRoute
+              exact
+              path="/admin/all-orders"
+              component={AllOrders}
+            />
 
             {/* -----------------------Price list------------------------- */}
-            <Route path="/admin/all-price-lists">
-              <AllPriceLists />
-            </Route>
-            <Route path="/admin/add-price-list">
-              <AddPriceList />
-            </Route>
+            <ProtectedRoute
+              exact
+              path="/admin/all-price-lists"
+              component={AllPriceLists}
+            />
 
             {/* -----------------------Products------------------------- */}
-            <Route path="/admin/all-products">
-              <AllProducts />
-            </Route>
-            <Route path="/admin/add-product">
-              <AddProduct />
-            </Route>
+            <ProtectedRoute
+              exact
+              path="/admin/all-products"
+              component={AllProducts}
+            />
 
-            {/* -----------------------Users------------------------- */}
-            <Route path="/admin/all-users">
-              <AllUsers />
-            </Route>
-            <Route path="/admin/add-user">
-              <AddUser />
-            </Route>
+            <ProtectedRoute
+              exact
+              path="/admin/add-product"
+              component={AddProduct}
+            />
           </Switch>
           <Footer />
         </Wrapper>
