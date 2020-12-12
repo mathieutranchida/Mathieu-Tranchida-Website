@@ -127,6 +127,10 @@ const App = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+`;
 
 export default App;

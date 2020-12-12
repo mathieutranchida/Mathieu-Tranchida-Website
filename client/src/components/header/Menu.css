@@ -1,0 +1,58 @@
+.menu {
+  position: absolute;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  top: 29px;
+  right: -20px;
+  cursor: pointer;
+}
+
+.menuFadeOut {
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+  opacity: 0;
+  right: -150px;
+}
+
+.menuFadeIn {
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+  opacity: 1;
+  right: -20px;
+}
+
+.realMenu {
+  position: absolute;
+  right: -500px;
+  top: 29px;
+  overflow: hidden;
+}
+
+.realMenuFadeIn {
+  -webkit-transition: all 800ms ease;
+  -moz-transition: all 800ms ease;
+  -o-transition: all 800ms ease;
+  -ms-transition: all 800ms ease;
+  transition: all 800ms ease;
+  opacity: 1;
+  right: 15px;
+  display: flex;
+}
+
+.realMenuFadeOut {
+  -webkit-transition: all 800ms ease;
+  -moz-transition: all 800ms ease;
+  -o-transition: all 800ms ease;
+  -ms-transition: all 800ms ease;
+  transition: all 800ms ease;
+  opacity: 1;
+  right: -500px;
+  display: flex;
+}

@@ -12,6 +12,8 @@ import { AiOutlineInstagram } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import COLORS from "../../constants";
 
+import ContactUs from "./ContactUs";
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonDelete = ({ _id }) => {
+const Contact = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -38,25 +40,13 @@ const ButtonDelete = ({ _id }) => {
     setOpen(false);
   };
 
-  const handleDelete = (_id) => {
-    fetch(`/delete-product/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ _id: _id }),
-    }).then(() => {
-      window.location.reload();
-    });
-  };
-
   return (
     <>
       <ContactWrapper onClick={handleOpen}>
         <LineWrapper>
           <Line />
         </LineWrapper>
-        <Contact>Contact</Contact>
+        <ContactTitle>Contact</ContactTitle>
       </ContactWrapper>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -71,71 +61,77 @@ const ButtonDelete = ({ _id }) => {
         }}
       >
         <Fade in={open}>
-          <EditModalWrapper>
-            <EditModalTitle>
-              <Title>Contact information</Title>
-              <BiX
-                style={{
-                  width: "25px",
-                  height: "25px",
-                  cursor: "pointer",
-                  color: "white",
-                }}
-                onClick={handleClose}
-              />
-            </EditModalTitle>
-            <Main>
-              <Div>
-                <InfoNoIcons>Mathieu Tranchida</InfoNoIcons>
-              </Div>
-              <ContactWrapperDescription>
-                <Div>
-                  <BiPhone
-                    style={{
-                      width: "17px",
-                      height: "17px",
-                      color: "white",
-                      paddingTop: "5px",
-                    }}
-                  />
-                  <Info>+1 (438) 927-7693</Info>
-                </Div>
-                <Div>
-                  <FiMail
-                    style={{
-                      width: "17px",
-                      height: "17px",
-                      color: "white",
-                      paddingTop: "5px",
-                    }}
-                  />
-                  <Info>mathieu.tranchida@gmail.com</Info>
-                </Div>
-                <Div>
-                  <AiOutlineInstagram
-                    style={{
-                      width: "17px",
-                      height: "17px",
-                      color: "white",
-                      paddingTop: "5px",
-                    }}
-                  />
-                  <Info>mathieutranchida</Info>
-                </Div>
-              </ContactWrapperDescription>
-              <LocationWrapper>
-                <GoLocation
+          <ModalWrapper>
+            <MainModalWrapper>
+              <ModalTitle>
+                <Title>Contact information</Title>
+                <BiX
                   style={{
-                    width: "17px",
-                    height: "17px",
+                    width: "25px",
+                    height: "25px",
+                    cursor: "pointer",
                     color: "white",
-                    paddingTop: "5px",
                   }}
+                  onClick={handleClose}
                 />
-                <Info>Montreal, QC, Canada</Info>
-              </LocationWrapper>
-            </Main>
-          </EditModalWrapper>
+              </ModalTitle>
+              <Main>
+                <Div>
+                  <InfoNoIcons>Mathieu Tranchida</InfoNoIcons>
+                </Div>
+                <ContactWrapperDescription>
+                  <Div>
+                    <BiPhone
+                      style={{
+                        width: "17px",
+                        height: "17px",
+                        color: "white",
+                        paddingTop: "5px",
+                      }}
+                    />
+                    <Info>+1 (438) 927-7693</Info>
+                  </Div>
+                  <Div>
+                    <FiMail
+                      style={{
+                        width: "17px",
+                        height: "17px",
+                        color: "white",
+                        paddingTop: "5px",
+                      }}
+                    />
+                    <Info>mathieu.tranchida@gmail.com</Info>
+                  </Div>
+                  <Div>
+                    <AiOutlineInstagram
+                      style={{
+                        width: "17px",
+                        height: "17px",
+                        color: "white",
+                        paddingTop: "5px",
+                      }}
+                    />
+                    <Info>mathieutranchida</Info>
+                  </Div>
+                </ContactWrapperDescription>
+                <LocationWrapper>
+                  <GoLocation
+                    style={{
+                      width: "17px",
+                      height: "17px",
+                      color: "white",
+                      paddingTop: "5px",
+                    }}
+                  />
+                  <Info>Montreal, QC, Canada</Info>
+                </LocationWrapper>
+                <SendAnEmailWrapper>
+                  <SendAnEmailTitle>Connect with Mathieu</SendAnEmailTitle>
+                  <ContactUs />
+                </SendAnEmailWrapper>
+              </Main>
+            </MainModalWrapper>
+          </ModalWrapper>
         </Fade>
       </Modal>
     </>
@@ -147,7 +143,12 @@ const ContactWrapper = styled.div`
   display: flex;
   align-items: center;
   top: 30px;
+  left: -20px;
   cursor: pointer;
+  transition: 500ms ease;
+  &:hover {
+    transform: translateX(10px);
+  }
 `;
 
 const LineWrapper = styled.div``;
@@ -155,11 +156,11 @@ const LineWrapper = styled.div``;
 const Line = styled.div`
   border-bottom: 2px solid black;
   margin: 5px 0px 5px 0px;
-  width: 40px;
+  width: 60px;
   /* box-shadow: 0px 0px 10px 0px ${COLORS.dropShadow}; */
 `;
 
-const Contact = styled.div`
+const ContactTitle = styled.div`
   padding-bottom: 2px;
   margin-left: 15px;
   color: black;
@@ -171,18 +172,24 @@ const Contact = styled.div`
   /* text-shadow: 0px 0px 10px rgba(100, 100, 100, 0.8); */
 `;
 
-const EditModalWrapper = styled.div`
+const ModalWrapper = styled.div`
   position: absolute;
   left: 0px;
   background-color: white;
   outline: none;
-  padding: 20px 25px;
   width: 50%;
-  height: 96vh;
+  height: 100vh;
   background-color: black;
+  @media (max-width: 800px) {
+    width: 100vw;
+  }
 `;
 
-const EditModalTitle = styled.div`
+const MainModalWrapper = styled.div`
+  margin: 20px 25px;
+`;
+
+const ModalTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -192,8 +199,8 @@ const Title = styled.div`
   color: black;
   text-transform: uppercase;
   font-family: sweet-sans-pro, sans-serif;
-  font-size: 12pt;
-  font-weight: 600;
+  font-size: 15pt;
+  font-weight: 800;
   letter-spacing: 2px;
   color: white;
 `;
@@ -201,7 +208,7 @@ const Title = styled.div`
 const Main = styled.div`
   margin: 15px 0px;
   font-family: sweet-sans-pro, sans-serif;
-  font-weight: 500;
+  font-weight: 400;
 `;
 
 const Div = styled.div`
@@ -209,9 +216,7 @@ const Div = styled.div`
   align-items: center;
 `;
 
-const ContactWrapperDescription = styled.div`
-  margin-top: 8px;
-`;
+const ContactWrapperDescription = styled.div``;
 
 const LocationWrapper = styled.div`
   margin-top: 15px;
@@ -229,4 +234,16 @@ const InfoNoIcons = styled.div`
   padding-left: 32px;
 `;
 
-export default ButtonDelete;
+const SendAnEmailWrapper = styled.div`
+  margin-top: 50px;
+`;
+
+const SendAnEmailTitle = styled.div`
+  color: white;
+  font-family: sweet-sans-pro, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-weight: 11pt;
+`;
+
+export default Contact;
