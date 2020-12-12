@@ -48,22 +48,6 @@ const SideBar = () => {
               <DropdownItem to="/admin/all-price-lists">
                 See all price lists
               </DropdownItem>
-              <DropdownItem to="/admin/add-price-list">
-                Add price list
-              </DropdownItem>
-            </Dropdown>
-          </DropdownWrapper>
-          <DropdownWrapper>
-            <Button
-            // onClick={() => {
-            //   showDropdown(3);
-            // }}
-            >
-              Users
-            </Button>
-            <Dropdown className="dropdown3" style={{ display: "block" }}>
-              <DropdownItem to="/admin/all-users">See all users</DropdownItem>
-              <DropdownItem to="/admin/add-user">Add an user</DropdownItem>
             </Dropdown>
           </DropdownWrapper>
           <DropdownWrapper>

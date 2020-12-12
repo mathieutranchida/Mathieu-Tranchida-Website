@@ -38,7 +38,7 @@ const FiWrapper = styled.div`
   position: absolute;
   top: 96vh;
   left: 50%;
-  transform: translate(-50% -50%);
+  transform: translate(-50%, -50%);
 
   animation-name: ArrowUpAndDown;
   animation-duration: 4s;

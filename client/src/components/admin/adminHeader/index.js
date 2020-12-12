@@ -5,7 +5,14 @@ import styled from "styled-components";
 const AdminHeader = () => {
   return (
     <>
-      <Wrapper to="/">Return to main site</Wrapper>
+      <Wrapper
+        to="/"
+        onClick={() => {
+          localStorage.removeItem("mtAuthenticated");
+        }}
+      >
+        Return to main site
+      </Wrapper>
     </>
   );
 };

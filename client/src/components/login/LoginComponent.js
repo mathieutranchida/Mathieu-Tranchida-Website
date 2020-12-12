@@ -13,7 +13,7 @@ const LoginComponent = () => {
   return (
     <>
       <Wrapper>
-        <Title>Login</Title>
+        <Title>Admin Login</Title>
         <InputDiv>
           <Type>Email</Type>
           <Input
@@ -43,8 +43,25 @@ const LoginComponent = () => {
         </SignUp>
         <ButtonWrapper>
           <Button
+            disabled={!email || !password}
             onClick={(ev) => {
-              history.push("/admin");
+              fetch("/login", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data);
+                  if (data.token) {
+                    localStorage.setItem("mtAuthenticated", true);
+                    history.push("/admin/all-products");
+                  } else {
+                    history.push("/");
+                  }
+                });
             }}
           >
             Login
@@ -116,6 +133,12 @@ const Button = styled.button`
   text-transform: uppercase;
   font-weight: 900;
   margin: 10px 0px 0px 0px;
+  &:disabled {
+    color: grey;
+  }
+  &:hover:not([disabled]) {
+    cursor: pointer;
+  }
 `;
 
 export default LoginComponent;
