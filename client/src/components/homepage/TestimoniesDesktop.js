@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const TestimoniesDesktop = () => {
+  const history = useHistory();
+
   return (
     <>
       <Wrapper>
@@ -19,8 +22,13 @@ const TestimoniesDesktop = () => {
             experience I always look forward to."
           </Text>
           <Person>Aidan Cameron, Content Creator</Person>
-          {/* <Button onClick={history.push("/testimonies")}> */}
-          <Button>See more testimonials</Button>
+          <Button
+            onClick={() => {
+              history.push("/testimonies");
+            }}
+          >
+            See more testimonials
+          </Button>
         </TestimonialWrapper>
       </Wrapper>
     </>
@@ -32,6 +40,18 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 135px 100px;
+  @media (max-width: 1100px) {
+    margin: 100px 100px;
+  }
+  @media (max-width: 1000px) {
+    margin: 70px 75px;
+  }
+  @media (max-width: 868px) {
+    margin: 35px 50px;
+  }
+  @media (max-width: 666px) {
+    margin: 0px 50px;
+  }
 `;
 
 const TestimonialWrapper = styled.div`

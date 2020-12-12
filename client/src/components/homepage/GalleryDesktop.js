@@ -118,15 +118,6 @@ const GalleryDesktop = () => {
             <VscChevronRight style={{ width: "25px", height: "25px" }} />
           </Button>
         </SlideshowContainer>
-        {/* <DotContainer>
-          <DotButton
-            onClick={() => {
-              showSlides(1);
-            }}
-          >
-            <GoDash style={{ width: "15px", height: "15px" }} />
-          </DotButton>
-        </DotContainer> */}
       </Wrapper>
     </>
   );
@@ -134,7 +125,10 @@ const GalleryDesktop = () => {
 
 const Wrapper = styled.div`
   max-height: 90vh;
-  padding: 75px 0px 50px;
+  padding: 75px 50px 50px 50px;
+  @media (max-width: 600px) {
+    padding: 50px 0px 50px 0px;
+  }
 `;
 
 const SlideshowContainer = styled.div`
@@ -173,6 +167,46 @@ const Slide = styled.div`
 const Image = styled.img`
   max-height: 85vh;
   max-width: 90vw;
+  @media (max-width: 1000px) {
+    max-width: 80vw;
+    max-height: 532px;
+  }
+  @media (max-width: 900px) {
+    max-width: 80vw;
+    max-height: 480px;
+  }
+  @media (max-width: 800px) {
+    max-width: 80vw;
+    max-height: 425px;
+  }
+  @media (max-width: 700px) {
+    max-width: 80vw;
+    max-height: 373px;
+  }
+  @media (max-width: 600px) {
+    max-width: 80vw;
+    max-height: 320px;
+  }
+  @media (max-width: 500px) {
+    max-width: 80vw;
+    max-height: 265px;
+  }
+  @media (max-width: 450px) {
+    max-width: 75vw;
+    max-height: 240px;
+  }
+  @media (max-width: 400px) {
+    max-width: 70vw;
+    max-height: 200px;
+  }
+  @media (max-width: 350px) {
+    max-width: 70vw;
+    max-height: 160px;
+  }
+  @media (max-width: 300px) {
+    max-width: 70vw;
+    max-height: 140px;
+  }
 `;
 
 const Info = styled.div`

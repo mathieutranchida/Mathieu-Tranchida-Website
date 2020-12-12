@@ -37,7 +37,24 @@ const AboutDesktop = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-top: 150px;
+  @media (max-width: 1150px) {
+    margin-top: 75px;
+    margin-bottom: 75px;
+  }
+  @media (max-width: 1000px) {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  @media (max-width: 868px) {
+    margin-top: 30px;
+    margin-bottom: 0px;
+  }
+  @media (max-width: 600px) {
+    margin-top: 20px;
+  }
+`;
 
 const Title = styled.div`
   font-family: sweet-sans-pro, sans-serif;
@@ -50,12 +67,51 @@ const Title = styled.div`
   transform: translate(-50%);
   display: block;
   margin-top: 25px;
+  @media (max-width: 1150px) {
+    position: relative;
+    text-align: center;
+    left: 50vw;
+    margin-top: 75px;
+  }
+  @media (max-width: 1000px) {
+    margin-top: 50px;
+  }
+  @media (max-width: 666px) {
+    font-size: 45px;
+  }
+  @media (max-width: 600px) {
+    font-size: 40px;
+    margin-top: 25px;
+  }
+  @media (max-width: 550px) {
+    font-size: 35px;
+  }
+  @media (max-width: 500px) {
+    font-size: 30px;
+  }
+  @media (max-width: 440px) {
+    font-size: 25px;
+  }
 `;
 
 const Main = styled.div`
   display: flex;
   justify-content: center;
   margin: 135px 100px;
+  margin-top: 25px;
+  @media (max-width: 1150px) {
+    margin-top: 40px;
+    margin-bottom: 0px;
+  }
+  @media (max-width: 1000px) {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  @media (max-width: 868px) {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 25px;
+  }
 `;
 
 const TextWrapper = styled.div`
@@ -63,6 +119,20 @@ const TextWrapper = styled.div`
   text-align: justify;
   margin-right: 100px;
   margin-top: 135px;
+  @media (max-width: 1150px) {
+    margin-top: 0px;
+    margin-right: 75px;
+  }
+  @media (max-width: 1000px) {
+    margin-right: 50px;
+  }
+  @media (max-width: 868px) {
+    margin-right: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+  }
 `;
 
 const Text = styled.div`
@@ -79,6 +149,14 @@ const TextLast = styled.div`
 const Portrait = styled.img`
   height: 500px;
   width: 500px;
+  @media (max-width: 1150px) {
+    height: 400px;
+    width: 400px;
+  }
+  @media (max-width: 600px) {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 export default AboutDesktop;

@@ -38,6 +38,9 @@ const Logo = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+  @media (max-width: 1025px) {
+    left: 50px;
+  }
 `;
 
 export default Header;

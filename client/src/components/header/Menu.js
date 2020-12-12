@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import { BiX } from "react-icons/bi";
-import COLORS from "../../constants";
+import ContactSmartphone from "./ContactSmartphone";
 
 import "./Menu.css";
 
@@ -38,10 +38,11 @@ const Menu = () => {
       <OpenMenuWrapper className="realMenu">
         <Nav>
           <Link exact to="/">
-            Portfolio
+            Homepage
           </Link>
-          <Link to="/blog">Blog</Link>
-          <Link to="/rates">Rates</Link>
+          <ContactWrapper>
+            <ContactSmartphone />
+          </ContactWrapper>
           <Link to="/store">Store</Link>
           <Link to="/cart">Cart</Link>
           <BiX
@@ -88,7 +89,6 @@ const MenuTitle = styled.div`
   font-weight: 600;
   letter-spacing: 2px;
   color: black;
-  /* text-shadow: 0px 0px 10px rgba(100, 100, 100, 0.8); */
 `;
 
 const LineWrapper = styled.div``;
@@ -97,7 +97,6 @@ const Line = styled.div`
   border-bottom: 2px solid black;
   margin: 5px 0px 5px 0px;
   width: 60px;
-  /* box-shadow: 0px 0px 10px 0px ${COLORS.dropShadow}; */
 `;
 
 const OpenMenuWrapper = styled.div``;
@@ -108,6 +107,11 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: right;
+  }
 `;
 
 const Link = styled(NavLink)`
@@ -122,6 +126,12 @@ const Link = styled(NavLink)`
   margin: 0px 10px;
   &.active {
     text-decoration: line-through;
+  }
+`;
+
+const ContactWrapper = styled.div`
+  @media (min-width: 1026px) {
+    display: none;
   }
 `;
 

@@ -119,6 +119,33 @@ const Textarea = styled.textarea`
   padding: 2px 4px;
   outline: none;
   color: ${COLORS.white};
+  @media (max-height: 688px) {
+    height: 220px;
+  }
+  @media (max-height: 668px) {
+    height: 200px;
+  }
+  @media (max-height: 648px) {
+    height: 180px;
+  }
+  @media (max-height: 628px) {
+    height: 160px;
+  }
+  @media (max-height: 608px) {
+    height: 140px;
+  }
+  @media (max-height: 588px) {
+    height: 120px;
+  }
+  @media (max-height: 568px) {
+    height: 100px;
+  }
+  @media (max-height: 548px) {
+    height: 80px;
+  }
+  @media (max-height: 528px) {
+    height: 60px;
+  }
 `;
 
 const Button = styled.input`
