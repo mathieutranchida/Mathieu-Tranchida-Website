@@ -8,10 +8,8 @@ import ProtectedRoute from "./ProtectedRoute";
 // User interface
 import Header from "./components/header/index";
 import Homepage from "./components/homepage/index";
-import Blog from "./components/blog/index";
 import Shop from "./components/shop/index";
 import Footer from "./components/footer/index";
-import Rates from "./components/rates/index";
 import Testimonies from "./components/testimonies/index";
 import Login from "./components/login/index";
 import CreateAccount from "./components/login/CreateAccount";
@@ -50,14 +48,6 @@ const App = () => {
             <Route exact path="/">
               <Header />
               <Homepage />
-            </Route>
-            <Route path="/rates">
-              <Header />
-              <Rates />
-            </Route>
-            <Route path="/blog">
-              <Header />
-              <Blog />
             </Route>
             <Route path="/store">
               <Header />
@@ -127,6 +117,10 @@ const App = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+`;
 
 export default App;

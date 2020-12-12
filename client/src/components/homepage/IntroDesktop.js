@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import backgroundImg from "../../assets/background-img.jpg";
+import backgroundImg from "../../assets/background-img-horizontal.jpg";
+import backgroundImgVertical from "../../assets/gallery/gallery-10.jpg";
 import { VscChevronDown } from "react-icons/vsc";
 import COLORS from "../../constants";
 
@@ -18,10 +19,6 @@ const IntroDesktop = () => {
             }}
           />
         </FiWrapper>
-        <TextAnimation>
-          <Name>Mathieu Tranchida</Name>
-          <Activity>Photography</Activity>
-        </TextAnimation>
       </Intro>
     </>
   );
@@ -32,13 +29,18 @@ const Intro = styled.div`
   background-image: url(${backgroundImg});
   background-size: cover;
   background-position: center;
+  @media (max-width: 800px) {
+    background-image: url(${backgroundImgVertical});
+    background-position: top;
+  }
 `;
 
 const FiWrapper = styled.div`
   position: absolute;
-  top: 96vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: calc(100vh - 34px);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 
   animation-name: ArrowUpAndDown;
   animation-duration: 4s;
@@ -62,49 +64,6 @@ const FiWrapper = styled.div`
       transform: translateY(0px);
     }
   }
-`;
-
-const TextAnimation = styled.div`
-  position: absolute;
-  top: 80px;
-  right: 35px;
-  text-align: right;
-  color: black;
-  font-family: sweet-sans-pro, sans-serif;
-  font-size: 9pt;
-  font-weight: 300;
-
-  animation-name: leftToRight;
-  animation-duration: 3300ms;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: 1;
-
-  @keyframes leftToRight {
-    0% {
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-    30% {
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0px);
-    }
-  }
-`;
-
-const Name = styled.div`
-  text-transform: uppercase;
-  letter-spacing: 10px;
-  text-shadow: 0px 0px 50px white;
-`;
-
-const Activity = styled.div`
-  text-transform: uppercase;
-  letter-spacing: 10px;
-  text-shadow: 0px 0px 50px white;
 `;
 
 export default IntroDesktop;

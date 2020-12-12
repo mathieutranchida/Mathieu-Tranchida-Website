@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Contact = () => {
+const ContactSmartphone = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -42,12 +42,7 @@ const Contact = () => {
 
   return (
     <>
-      <ContactWrapper onClick={handleOpen}>
-        <LineWrapper>
-          <Line />
-        </LineWrapper>
-        <ContactTitle>Contact</ContactTitle>
-      </ContactWrapper>
+      <ContactTitle onClick={handleOpen}>Contact</ContactTitle>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -138,41 +133,17 @@ const Contact = () => {
   );
 };
 
-const ContactWrapper = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  top: 30px;
-  left: -20px;
-  cursor: pointer;
-  transition: 500ms ease;
-  &:hover {
-    transform: translateX(10px);
-  }
-  @media (max-width: 1025px) {
-    display: none;
-  }
-`;
-
-const LineWrapper = styled.div``;
-
-const Line = styled.div`
-  border-bottom: 2px solid black;
-  margin: 5px 0px 5px 0px;
-  width: 60px;
-  /* box-shadow: 0px 0px 10px 0px ${COLORS.dropShadow}; */
-`;
-
 const ContactTitle = styled.div`
-  padding-bottom: 2px;
-  margin-left: 15px;
-  color: black;
+  color: white;
   text-transform: uppercase;
   font-family: sweet-sans-pro, sans-serif;
   font-size: 12pt;
   font-weight: 600;
   letter-spacing: 2px;
-  /* text-shadow: 0px 0px 10px rgba(100, 100, 100, 0.8); */
+  color: black;
+  text-decoration: none;
+  margin: 0px 10px;
+  cursor: pointer;
 `;
 
 const ModalWrapper = styled.div`
@@ -249,4 +220,4 @@ const SendAnEmailTitle = styled.div`
   font-weight: 11pt;
 `;
 
-export default Contact;
+export default ContactSmartphone;
