@@ -94,19 +94,15 @@ const CartProducts = () => {
                 .toLowerCase();
               let paperTypeString1 = product.paperType.charAt(0).toUpperCase();
               let paperTypeString2 = product.paperType.slice(1);
+              let productPrice =
+                parseFloat(product.price) * parseFloat(product.quantity);
               return (
                 <>
                   <ProductWrapper>
                     <ImageWrapper>
-                      <Image cloudName="dldqebddc" publicId={product.imageSrc}>
-                        <Transformation
-                          quality="100"
-                          width="150"
-                          height="150"
-                          fetchFormat="auto"
-                          crop="limit"
-                        />
-                      </Image>
+                      <Img
+                        src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_30,w_250/${product.imageSrc}.jpg`}
+                      />
                     </ImageWrapper>
                     <InfoWrapper>
                       <Main>
@@ -121,7 +117,6 @@ const CartProducts = () => {
                             {sizeString2}
                           </SecondLineInfo>
                         </SecondLineWrapper>
-                        <Id>Product ID: {product._id}</Id>
                       </Main>
                       <Second>
                         <ChangeQuantityWrapper>
@@ -198,7 +193,7 @@ const CartProducts = () => {
                           </RemoveButton>
                         </ChangeQuantityWrapper>
                         <ProductPriceWrapper>
-                          CAD$ {product.price}.00
+                          CAD$ {productPrice}.00
                         </ProductPriceWrapper>
                       </Second>
                     </InfoWrapper>
@@ -206,7 +201,7 @@ const CartProducts = () => {
                 </>
               );
             })}
-            <TotalPrice>Total: CAD$ {cart.totalPriceBeforeTax}.00</TotalPrice>
+            <TotalPrice>CAD$ {cart.totalPriceBeforeTax}.00</TotalPrice>
           </WrapperCart>
         )}
       </Wrapper>
@@ -216,14 +211,15 @@ const CartProducts = () => {
 
 const Wrapper = styled.div``;
 
-const Empty = styled.div``;
+const Empty = styled.div`
+  text-align: center;
+`;
 
 const WrapperCart = styled.div`
-  width: 715px;
+  width: 100%;
 `;
 
 const ProductWrapper = styled.div`
-  height: 150px;
   display: flex;
   padding: 12px 0px;
   border-bottom: 1px grey solid;
@@ -232,12 +228,24 @@ const ProductWrapper = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  height: 150px;
-  width: 150px;
+  height: 115px;
+  width: 115px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 25px;
+  @media (max-width: 650px) {
+    height: 130px;
+  }
+  @media (max-width: 500px) {
+    height: 150px;
+  }
+`;
+
+const Img = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 `;
 
 const InfoWrapper = styled.div`
@@ -245,7 +253,7 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* width: 100%; */
+  width: 100%;
 `;
 
 const Main = styled.div``;
@@ -258,6 +266,12 @@ const ProductName = styled.div`
 const SecondLineWrapper = styled.div`
   display: flex;
   margin-top: 6px;
+  @media (max-width: 650px) {
+    flex-direction: column;
+  }
+  @media (max-width: 500px) {
+    margin-bottom: 7px;
+  }
 `;
 
 const SecondLineInfo = styled.div`
@@ -266,14 +280,13 @@ const SecondLineInfo = styled.div`
   margin-right: 25px;
 `;
 
-const Id = styled.div`
-  font-weight: 300;
-  font-size: 11pt;
-`;
-
 const Second = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
 `;
 
 const ChangeQuantityWrapper = styled.div`
@@ -333,6 +346,9 @@ const ProductPriceWrapper = styled.div`
   font-weight: 500;
   float: right;
   text-align: right;
+  @media (max-width: 500px) {
+    margin-top: 10px;
+  }
 `;
 
 const TotalPrice = styled.div`

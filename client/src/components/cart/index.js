@@ -7,11 +7,13 @@ const Cart = () => {
   return (
     <>
       <Wrapper>
-        <Header>Your cart</Header>
-        <CartWrapper>
-          <CartProducts />
-          <CartSummary />
-        </CartWrapper>
+        <ContentWrapper>
+          <Header>Your cart</Header>
+          <CartWrapper>
+            <CartProducts />
+            <CartSummary />
+          </CartWrapper>
+        </ContentWrapper>
       </Wrapper>
     </>
   );
@@ -21,21 +23,31 @@ const Wrapper = styled.div`
   min-height: calc(100vh - 100px);
 `;
 
+const ContentWrapper = styled.div`
+  margin: 110px 100px 80px 100px;
+  @media (max-width: 1025px) {
+    margin: 80px 100px 80px 100px;
+  }
+  @media (max-width: 900px) {
+    margin: 80px 50px 40px 50px;
+  }
+  @media (max-width: 650px) {
+    margin: 80px 25px 30px 25px;
+  }
+`;
+
 const Header = styled.div`
-  margin: 0px auto;
-  padding: 50px 0px;
-  max-width: 1000px;
-  font-weight: 900;
+  text-align: center;
   text-transform: uppercase;
+  font-weight: 900;
   font-family: sweet-sans-pro, sans-serif;
-  font-size: 20pt;
+  font-size: 15pt;
+  margin-bottom: 25px;
 `;
 
 const CartWrapper = styled.div`
   margin: 0px auto;
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-between;
+  max-width: 850px;
 `;
 
 export default Cart;

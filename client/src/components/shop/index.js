@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-// import Intro from "./Intro";
 import MainShop from "./MainShop";
 
 const Shop = () => {
   return (
     <>
       <Wrapper>
-        {/* <Intro /> */}
         <MainShop />
       </Wrapper>
     </>

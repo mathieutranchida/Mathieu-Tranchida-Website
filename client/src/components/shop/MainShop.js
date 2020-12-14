@@ -26,7 +26,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 25px 0px 25px;
+  margin: 100px 100px 100px 100px;
+  @media (max-width: 1025px) {
+    margin: 90px 16px 0px 16px;
+  }
 `;
 
 export default MainShop;

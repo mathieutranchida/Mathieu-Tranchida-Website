@@ -24,10 +24,15 @@ const Wrapper = styled.div`
   color: ${COLORS.white};
   background-color: ${COLORS.secondary};
   padding: 0px 50px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const Content = styled.div`
   font-weight: 200;
+  text-align: center;
 `;
 
 const Nothing = styled.div`
@@ -36,12 +41,18 @@ const Nothing = styled.div`
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const Login = styled(NavLink)`
   text-decoration: none;
   color: white;
   font-weight: 200;
+  @media (max-width: 600px) {
+    margin-top: 10px;
+  }
 `;
 
 export default Footer;
