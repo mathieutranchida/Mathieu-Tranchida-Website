@@ -39,20 +39,6 @@ const SideBar = () => {
           <DropdownWrapper>
             <Button
             // onClick={() => {
-            //   showDropdown(2);
-            // }}
-            >
-              Pricing
-            </Button>
-            <Dropdown className="dropdown2" style={{ display: "block" }}>
-              <DropdownItem to="/admin/all-price-lists">
-                See all price lists
-              </DropdownItem>
-            </Dropdown>
-          </DropdownWrapper>
-          <DropdownWrapper>
-            <Button
-            // onClick={() => {
             //   showDropdown(4);
             // }}
             >

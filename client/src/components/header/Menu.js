@@ -37,35 +37,39 @@ const Menu = () => {
       </MenuWrapper>
       <OpenMenuWrapper className="realMenu">
         <Nav>
-          <Link exact to="/">
-            Homepage
-          </Link>
-          <ContactWrapper>
-            <ContactSmartphone />
-          </ContactWrapper>
-          <Link to="/store">Store</Link>
-          <Link to="/cart">Cart</Link>
-          <BiX
-            style={{
-              width: "25px",
-              height: "25px",
-              cursor: "pointer",
-              color: "black",
-            }}
-            onClick={() => {
-              document.querySelector(".menu").classList.remove("menuFadeIn");
-              document
-                .querySelector(".realMenu")
-                .classList.remove("realMenuFadeOut");
-              document
-                .querySelector(".realMenu")
-                .classList.remove("realMenuFadeIn");
-              document.querySelector(".menu").classList.add("menuFadeIn");
-              document
-                .querySelector(".realMenu")
-                .classList.add("realMenuFadeOut");
-            }}
-          />
+          <LinkWrapper>
+            <Link exact to="/">
+              Homepage
+            </Link>
+            <ContactWrapper>
+              <ContactSmartphone />
+            </ContactWrapper>
+            <Link to="/store">Store</Link>
+            <Link to="/cart">Cart</Link>
+          </LinkWrapper>
+          <BiXWrapper>
+            <BiX
+              style={{
+                width: "25px",
+                height: "25px",
+                cursor: "pointer",
+                color: "black",
+              }}
+              onClick={() => {
+                document.querySelector(".menu").classList.remove("menuFadeIn");
+                document
+                  .querySelector(".realMenu")
+                  .classList.remove("realMenuFadeOut");
+                document
+                  .querySelector(".realMenu")
+                  .classList.remove("realMenuFadeIn");
+                document.querySelector(".menu").classList.add("menuFadeIn");
+                document
+                  .querySelector(".realMenu")
+                  .classList.add("realMenuFadeOut");
+              }}
+            />
+          </BiXWrapper>
         </Nav>
       </OpenMenuWrapper>
     </>
@@ -110,7 +114,24 @@ const Nav = styled.nav`
   @media (max-width: 800px) {
     display: flex;
     flex-direction: column-reverse;
-    text-align: right;
+    align-items: flex-end;
+  }
+`;
+
+const LinkWrapper = styled.div`
+  display: flex;
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+const BiXWrapper = styled.div`
+  padding-top: 5px;
+  @media (max-width: 800px) {
+    margin-right: 10px;
+    margin-bottom: 8px;
   }
 `;
 
@@ -127,11 +148,17 @@ const Link = styled(NavLink)`
   &.active {
     text-decoration: line-through;
   }
+  @media (max-width: 800px) {
+    margin-bottom: 8px;
+  }
 `;
 
 const ContactWrapper = styled.div`
   @media (min-width: 1026px) {
     display: none;
+  }
+  @media (max-width: 800px) {
+    margin-bottom: 8px;
   }
 `;
 

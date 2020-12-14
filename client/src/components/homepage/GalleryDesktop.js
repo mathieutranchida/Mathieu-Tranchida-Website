@@ -213,6 +213,9 @@ const Info = styled.div`
   text-align: right;
   font-weight: 200;
   font-size: 10pt;
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const Button = styled.button`

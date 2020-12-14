@@ -2,6 +2,8 @@
 const { MongoClient, ObjectId } = require("mongodb");
 const assert = require("assert");
 const { disconnect } = require("process");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const { MONGO_URI } = process.env;
@@ -42,105 +44,88 @@ const getAllUsers = async (req, res) => {
     });
 };
 
-// Get single user
-const getUser = async (req, res) => {
-  const client = await MongoClient(MONGO_URI, options);
+// SignUp
+const signUp = async (req, res) => {
+  const { email, password } = req.body;
 
-  await client.connect();
-
-  const db = client.db("mtwebsite");
-  console.log("connected!");
-
-  const email = req.params.email;
-
-  db.collection("users").findOne({ email }, (err, result) => {
-    result
-      ? res.status(200).json({ status: 200, email, data: result })
-      : res.status(404).json({ status: 404, email, data: "Not Found" });
-
-    client.close();
-    console.log("disconnected!");
-  });
-};
-
-// Post user
-const postUser = async (req, res) => {
-  try {
-    const client = await MongoClient(MONGO_URI, options);
-
-    await client.connect();
-
-    const db = client.db("mtwebsite");
-    console.log("connected!");
-
-    const result = await db.collection("users").insertOne(req.body);
-    assert.equal(1, result.insertedCount);
-
-    res.status(201).json({ status: 201, data: req.body });
-
-    client.close();
-    console.log("disconnected!");
-  } catch (err) {
-    res.status(500).json({ status: 500, data: req.body, message: err.message });
+  if (!!!email || !!!password) {
+    res.status(400).json({ error: "missing required fields" });
   }
-};
 
-// Modify user
-const modifyUser = async (req, res) => {
   try {
     const client = await MongoClient(MONGO_URI, options);
-
     await client.connect();
-
     const db = client.db("mtwebsite");
     console.log("connected!");
 
-    const email = req.params.email;
-    const query = { email: email };
-    const newValues = { $set: req.body };
+    const userFromDb = await db.collection("users").findOne({ email });
 
-    const result = await db.collection("users").updateOne(query, newValues);
-    assert.equal(1, result.matchedCount);
-    assert.equal(1, result.modifiedCount);
+    if (userFromDb) {
+      res.status(400).json({ error: "User already exists" });
+      return;
+    }
 
-    client.close();
-    console.log("disconnected!");
+    const hash = await bcrypt.hash(password, 8);
 
-    res.status(200).json({
-      status: 200,
-      data: { email, result },
+    const savedDoc = await db.collection("users").insertOne({
+      email,
+      password: hash,
     });
-  } catch (err) {
-    res.status(500).json({ status: 500, data: req.body, message: err.message });
-  }
-};
 
-// Delete product
-const deleteUser = async (req, res) => {
-  try {
-    const client = await MongoClient(MONGO_URI, options);
+    const [user] = savedDoc.ops;
 
-    await client.connect();
-
-    const db = client.db("mtwebsite");
-    console.log("connected!");
-
-    const email = req.params.email;
-
-    const result = await db.collection("users").deleteOne({ email });
-    assert.equal(1, result.deletedCount);
+    jwt.sign({ _id: user._id }, process.env.SECRET, function (err, token) {
+      if (err) {
+        res.status(500).send({ error: err.message });
+      }
+      res.status(201).json({ email: user.email, _id: user._id, token });
+    });
 
     client.close();
     console.log("disconnected!");
-
-    res.status(204).json({
-      status: 204,
-      data: email,
-      message: `${email} has been deleted from the database`,
-    });
   } catch (err) {
     res.status(500).json({ status: 500, data: req.body, message: err.message });
   }
 };
 
-module.exports = { getAllUsers, getUser, postUser, modifyUser, deleteUser };
+// Login
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!!!email || !!!password) {
+    res.status(400).json({ error: "Missing required fields" });
+  }
+
+  try {
+    const client = await MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("mtwebsite");
+    console.log("connected!");
+
+    const userFromDb = await db.collection("users").findOne({ email });
+    const passwordMatches = await bcrypt.compare(password, userFromDb.password);
+
+    if (!userFromDb || !passwordMatches) {
+      res.status(403).json({
+        message: "Your email or password is incorect. Please try again.",
+      });
+      return;
+    }
+
+    const token = jwt.sign({ id: userFromDb._id }, process.env.SECRET, {
+      expiresIn: "1h",
+    });
+
+    res
+      .status(200)
+      .json({ user: { _id: userFromDb._id, email: userFromDb.email }, token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
+};
+
+// Verify user
+const verifyUser = async (req, res) => {};
+
+module.exports = { getAllUsers, login, signUp };

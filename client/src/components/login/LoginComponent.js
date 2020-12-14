@@ -2,11 +2,41 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+
+import { BiTrash, BiX } from "react-icons/bi";
 import COLORS from "../../constants";
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const history = useHistory();
 
@@ -34,13 +64,6 @@ const LoginComponent = () => {
             }}
           />
         </InputDiv>
-        <SignUp
-          onClick={(ev) => {
-            history.push("/create-account");
-          }}
-        >
-          Create an account
-        </SignUp>
         <ButtonWrapper>
           <Button
             disabled={!email || !password}
@@ -59,7 +82,7 @@ const LoginComponent = () => {
                     localStorage.setItem("mtAuthenticated", true);
                     history.push("/admin/all-products");
                   } else {
-                    history.push("/");
+                    handleOpen();
                   }
                 });
             }}
@@ -67,6 +90,30 @@ const LoginComponent = () => {
             Login
           </Button>
         </ButtonWrapper>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <EditModalWrapper>
+              <EditModalTitle>
+                <TitleModal>Your email or password is incorect</TitleModal>
+                <BiX
+                  style={{ width: "25px", height: "25px", cursor: "pointer" }}
+                  onClick={handleClose}
+                />
+              </EditModalTitle>
+            </EditModalWrapper>
+          </Fade>
+        </Modal>
       </Wrapper>
     </>
   );
@@ -110,16 +157,6 @@ const Input = styled.input`
   color: ${COLORS.white};
 `;
 
-const SignUp = styled.div`
-  display: block;
-  text-align: right;
-  font-size: 10pt;
-  font-family: sweet-sans-pro, sans-serif;
-  text-decoration: none;
-  color: ${COLORS.white};
-  margin: 5px 0px;
-`;
-
 const ButtonWrapper = styled.div``;
 
 const Button = styled.button`
@@ -139,6 +176,23 @@ const Button = styled.button`
   &:hover:not([disabled]) {
     cursor: pointer;
   }
+`;
+
+const EditModalWrapper = styled.div`
+  background-color: white;
+  outline: none;
+  padding: 20px 25px;
+  width: 325px;
+`;
+
+const EditModalTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const TitleModal = styled.div`
+  font-weight: 500;
 `;
 
 export default LoginComponent;

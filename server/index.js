@@ -18,10 +18,9 @@ const {
 
 const {
   getAllUsers,
-  getUser,
-  postUser,
-  modifyUser,
-  deleteUser,
+
+  signUp,
+  login,
 } = require("./apiRoutes/users");
 
 const { getPriceLists } = require("./apiRoutes/priceLists");
@@ -118,17 +117,11 @@ express()
   // Get all products
   .get("/users", getAllUsers)
 
-  // Get single product
-  .get("/user/:email", getUser)
+  // Sign up
+  .post("/signup", signUp)
 
-  // Create user
-  .post("/post-user", postUser)
-
-  // Modify user
-  .put("/modify-user/:email", modifyUser)
-
-  // Delete user
-  .delete("/delete-user/:email", deleteUser)
+  // Login
+  .post("/login", login)
 
   // STRIPE API --------------------------------------------------
   .post("/checkout", async (req, res) => {

@@ -32,91 +32,77 @@ const CartSummary = () => {
 
   return (
     <>
-      <Wrapper>
-        <Header>Cart summary</Header>
-        <TotalWrapper>
-          <Type>Total:</Type>
-          <Total>
-            {cart.totalPriceBeforeTax > 0 &&
-              `CAD$ ${cart.totalPriceBeforeTax}.00`}
-          </Total>
-        </TotalWrapper>
-        <TaxWrapper>
-          <Type>Taxes:</Type>
-          <Tax>GST (5%): {cart.gst > 0 && `$${roundedGst}`}</Tax>
-          <Tax>QST (9.975%): {cart.qst > 0 && `$${roundedQst}`}</Tax>
-        </TaxWrapper>
-        <ShippingForm>
-          <Type>Select shipping type:</Type>
-          <InputRadioDiv>
-            <InputRadio
-              type="radio"
-              name="shipping type"
-              value="inperson0"
-              checked={cart.shippingOption === "inperson"}
-              onChange={(ev) => {
-                updateShipping(
-                  ev.target.value.replace(/[0-9]/g, ""),
-                  ev.target.value.replace(/\D/g, "")
-                );
-              }}
-            />
-            <Label>In person (Montreal only) - Free</Label>
-          </InputRadioDiv>
-          <InputRadioDiv>
-            <InputRadio
-              type="radio"
-              name="shipping type"
-              value="canada15"
-              checked={cart.shippingOption === "canada"}
-              onChange={(ev) => {
-                updateShipping(
-                  ev.target.value.replace(/[0-9]/g, ""),
-                  ev.target.value.replace(/\D/g, "")
-                );
-              }}
-            />
-            <Label>Canada - CAD$ 15.00</Label>
-          </InputRadioDiv>
-          <InputRadioDiv>
-            <InputRadio
-              type="radio"
-              name="shipping type"
-              value="worldwide30"
-              checked={cart.shippingOption === "worldwide"}
-              onChange={(ev) => {
-                updateShipping(
-                  ev.target.value.replace(/[0-9]/g, ""),
-                  ev.target.value.replace(/\D/g, "")
-                );
-              }}
-            />
-            <Label>Worldwide - CAD$ 30.00</Label>
-          </InputRadioDiv>
-        </ShippingForm>
-        <TotalFinalWrapper>
-          <Type>Total + tax + shipping:</Type>
-          <Total>CAD$ {roundedFinalPrice}</Total>
-        </TotalFinalWrapper>
-        <Checkout />{" "}
-      </Wrapper>
+      {cart.products.length !== 0 && (
+        <Wrapper>
+          <TaxWrapper>
+            <Tax>GST (5%): {cart.gst > 0 && `$${roundedGst}`}</Tax>
+            <Tax>QST (9.975%): {cart.qst > 0 && `$${roundedQst}`}</Tax>
+          </TaxWrapper>
+          <ShippingForm>
+            <Type>Select shipping type:</Type>
+            <InputRadioDiv>
+              <Label>In person (Montreal only) - Free</Label>
+              <InputRadio
+                type="radio"
+                name="shipping type"
+                value="inperson0"
+                checked={cart.shippingOption === "inperson"}
+                onChange={(ev) => {
+                  updateShipping(
+                    ev.target.value.replace(/[0-9]/g, ""),
+                    ev.target.value.replace(/\D/g, "")
+                  );
+                }}
+              />
+            </InputRadioDiv>
+            <InputRadioDiv>
+              <Label>Canada - CAD$ 15.00</Label>
+              <InputRadio
+                type="radio"
+                name="shipping type"
+                value="canada15"
+                checked={cart.shippingOption === "canada"}
+                onChange={(ev) => {
+                  updateShipping(
+                    ev.target.value.replace(/[0-9]/g, ""),
+                    ev.target.value.replace(/\D/g, "")
+                  );
+                }}
+              />
+            </InputRadioDiv>
+            <InputRadioDiv>
+              <Label>Worldwide - CAD$ 30.00</Label>
+              <InputRadio
+                type="radio"
+                name="shipping type"
+                value="worldwide30"
+                checked={cart.shippingOption === "worldwide"}
+                onChange={(ev) => {
+                  updateShipping(
+                    ev.target.value.replace(/[0-9]/g, ""),
+                    ev.target.value.replace(/\D/g, "")
+                  );
+                }}
+              />
+            </InputRadioDiv>
+          </ShippingForm>
+          <TotalFinalWrapper>
+            <Total>TOTAL: CAD$ {roundedFinalPrice}</Total>
+            <CheckoutWrapper>
+              <Checkout />
+            </CheckoutWrapper>
+          </TotalFinalWrapper>
+        </Wrapper>
+      )}
     </>
   );
 };
 
 const Wrapper = styled.div`
-  width: 210px;
-  padding: 12px 12px;
+  width: 100%;
   font-weight: 300;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Header = styled.div`
-  font-weight: 900;
-  text-transform: uppercase;
-  font-family: sweet-sans-pro, sans-serif;
-  font-size: 14pt;
+  text-align: right;
+  margin-top: 40px;
 `;
 
 const Type = styled.div`
@@ -125,12 +111,12 @@ const Type = styled.div`
   font-size: 12pt;
 `;
 
-const TotalWrapper = styled.div`
-  margin-top: 15px;
-`;
-
 const Total = styled.div`
-  margin-left: 10px;
+  float: right;
+  margin-top: 10px;
+  font-size: 15pt;
+  font-family: halyard-display, sans-serif;
+  font-weight: 500;
 `;
 
 const TaxWrapper = styled.div`
@@ -142,13 +128,15 @@ const Tax = styled.div`
 `;
 
 const ShippingForm = styled.form`
-  display: block;
+  display: flex;
+  flex-direction: column;
   margin-top: 10px;
 `;
 
 const InputRadioDiv = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const InputRadio = styled.input`
@@ -157,11 +145,18 @@ const InputRadio = styled.input`
 
 const Label = styled.label`
   font-size: 11pt;
-  margin-left: 5px;
+  padding-top: 2px;
 `;
 
 const TotalFinalWrapper = styled.div`
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const CheckoutWrapper = styled.div`
+  margin-top: 0px;
+  text-align: right;
 `;
 
 export default CartSummary;

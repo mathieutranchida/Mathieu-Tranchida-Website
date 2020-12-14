@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Image, Transformation } from "cloudinary-react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { useHistory } from "react-router-dom";
@@ -24,7 +23,7 @@ import {
   addProductBeforeAddToCartReset,
 } from "../../redux/actions";
 
-import { cartAddProduct, cartUpdateCartId } from "../../redux/actions";
+import { cartAddProduct } from "../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -108,37 +107,17 @@ const OneProduct = ({ ...product }) => {
             dispatch(addProductIdBeforeAddToCart(uuidv4()));
           }}
         >
-          <Image
-            cloudName="dldqebddc"
-            publicId={product.imageSrc}
-            // height="(max-height: 90vh)"
-            // width="(max-width: 90vw)"
-            // srcset={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_256/${product.imageSrc}.jpg 256w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_512/${product.imageSrc}.jpg 512w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_768/${product.imageSrc}.jpg 768w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1024/${product.imageSrc}.jpg 1024w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w`}
-            // src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_512/${product.imageSrc}.jpg`}
-          >
-            <Transformation
-              quality="100"
-              width="1100"
-              height="800"
-              fetchFormat="auto"
-              crop="limit"
-            />
-          </Image>
-          {/* <img
-            sizes="(min-width: 30em) 28em, 100vw"
-            src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_auto/${product.imageSrc}.jpg`}
-            // srcset={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_256/${product.imageSrc}.jpg 256w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_512/${product.imageSrc}.jpg 512w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_768/${product.imageSrc}.jpg 768w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1024/${product.imageSrc}.jpg 1024w,
-            //       https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w`}
-          /> */}
+          <Img
+            src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg`}
+            srcset={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_256/${product.imageSrc}.jpg 256w,
+            https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_512/${product.imageSrc}.jpg 512w,
+            https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_768/${product.imageSrc}.jpg 768w,
+            https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1024/${product.imageSrc}.jpg 1024w,
+            https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w`}
+            alt={product.name}
+          />
         </ImageWrapper>
-        <AddToCart
+        {/* <AddToCart
           onClick={() => {
             handleOpen();
             dispatch(addProductBeforeAddToCartReset());
@@ -148,7 +127,7 @@ const OneProduct = ({ ...product }) => {
           }}
         >
           Buy photo
-        </AddToCart>
+        </AddToCart> */}
       </Wrapper>
 
       {/* ----------------------Modal---------------------- */}
@@ -180,15 +159,15 @@ const OneProduct = ({ ...product }) => {
               />
             </ModalTitle>
             <Main>
-              <Image cloudName="dldqebddc" publicId={product.imageSrc}>
-                <Transformation
-                  quality="100"
-                  width="1000"
-                  height="700"
-                  fetchFormat="auto"
-                  crop="limit"
-                />
-              </Image>
+              <ImgModal
+                src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg`}
+                srcset={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_256/${product.imageSrc}.jpg 256w,
+                  https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_512/${product.imageSrc}.jpg 512w,
+                  https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_768/${product.imageSrc}.jpg 768w,
+                  https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1024/${product.imageSrc}.jpg 1024w,
+                  https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w`}
+                alt={product.name}
+              />
               <InfoWrapper>
                 <Details>
                   <Name>{product.imageName}</Name>
@@ -323,29 +302,53 @@ const OneProduct = ({ ...product }) => {
 };
 
 const Wrapper = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 16px;
 `;
 
 const ImageWrapper = styled.div`
   cursor: pointer;
 `;
 
-const AddToCart = styled.div`
-  text-align: right;
-  font-family: sweet-sans-pro, sans-serif;
-  text-transform: uppercase;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 0px;
-  font-size: 10pt;
-  cursor: pointer;
+const Img = styled.img`
+  height: 100%;
+  width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  @media (max-width: 800px) {
+    max-height: none;
+  }
+`;
+
+const ImgModal = styled.img`
+  object-fit: contain;
+  max-height: 80vh;
+  max-width: 60vw;
+  @media (max-width: 950px) {
+    max-height: 200px;
+    max-width: 400px;
+    margin-bottom: 25px;
+  }
+  @media (max-width: 490px) {
+    max-height: 150px;
+    max-width: 300px;
+  }
+  @media (max-width: 383px) {
+    max-height: 125px;
+    max-width: 250px;
+  }
 `;
 
 const ModalWrapper = styled.div`
   background-color: white;
   outline: none;
   padding: 20px 25px;
+  min-width: 400px;
+  @media (max-width: 490px) {
+    min-width: 300px;
+  }
+  @media (max-width: 383px) {
+    min-width: 250px;
+  }
 `;
 
 const ModalTitle = styled.div`
@@ -361,6 +364,9 @@ const Title = styled.div`
 
 const Main = styled.div`
   display: flex;
+  @media (max-width: 950px) {
+    flex-direction: column;
+  }
 `;
 
 const InfoWrapper = styled.div`
@@ -369,6 +375,16 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (max-width: 950px) {
+    margin-left: 0px;
+    width: 400px;
+  }
+  @media (max-width: 490px) {
+    width: 300px;
+  }
+  @media (max-width: 383px) {
+    width: 250px;
+  }
 `;
 
 const Name = styled.div`
@@ -379,17 +395,33 @@ const Name = styled.div`
 
 const Details = styled.div`
   font-weight: 200;
+  margin-bottom: 25px;
 `;
 
 const Title1 = styled.span`
   font-weight: 400;
+  @media (max-height: 650px) {
+    display: none;
+  }
 `;
 
-const Athlete = styled.div``;
+const Athlete = styled.div`
+  @media (max-height: 650px) {
+    display: none;
+  }
+`;
 
-const Location = styled.div``;
+const Location = styled.div`
+  @media (max-height: 650px) {
+    display: none;
+  }
+`;
 
-const Project = styled.div``;
+const Project = styled.div`
+  @media (max-height: 650px) {
+    display: none;
+  }
+`;
 
 const Dropdowns = styled.div`
   margin-top: 30px;
@@ -463,6 +495,15 @@ const ButtonAdd = styled.button`
   &:disabled {
     border: grey 1px solid;
     color: grey;
+  }
+  @media (max-width: 950px) {
+    width: 400px;
+  }
+  @media (max-width: 490px) {
+    width: 300px;
+  }
+  @media (max-width: 383px) {
+    width: 250px;
   }
 `;
 

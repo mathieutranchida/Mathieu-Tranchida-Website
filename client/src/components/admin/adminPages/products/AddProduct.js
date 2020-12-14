@@ -4,6 +4,7 @@ import SideBar from "../../SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { Image } from "cloudinary-react";
+import { useHistory } from "react-router-dom";
 
 import COLORS from "../../../../constants";
 
@@ -23,6 +24,8 @@ import AdminHeader from "../../adminHeader";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const newProduct = useSelector((state) => state.adminAddProductReducer);
 
@@ -58,7 +61,11 @@ const AddProduct = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newProduct),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        window.location.reload();
+      });
   };
 
   return (

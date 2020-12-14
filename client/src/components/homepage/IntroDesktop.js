@@ -28,7 +28,7 @@ const Intro = styled.div`
   height: 100vh;
   background-image: url(${backgroundImg});
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
   @media (max-width: 800px) {
     background-image: url(${backgroundImgVertical});
     background-position: top;

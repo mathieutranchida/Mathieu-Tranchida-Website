@@ -40,7 +40,7 @@ const OrderConfirmation = () => {
                     <ImageWrapper>
                       <Image cloudName="dldqebddc" publicId={product.imageSrc}>
                         <Transformation
-                          quality="100"
+                          quality="50"
                           width="100"
                           height="100"
                           fetchFormat="auto"
@@ -177,15 +177,25 @@ const Wrapper = styled.div`
   margin: 0px auto;
   display: flex;
   flex-direction: column;
+  margin: 110px auto 0px auto;
+  @media (max-width: 1025px) {
+    margin: 80px auto 80px auto;
+  }
+  @media (max-width: 900px) {
+    margin: 80px auto 0px auto;
+  }
+  @media (max-width: 650px) {
+    margin: 80px auto 0px auto;
+  }
 `;
 
 const Header = styled.div`
-  padding: 50px 0px;
-  font-weight: 900;
-  text-transform: uppercase;
   text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
   font-family: sweet-sans-pro, sans-serif;
-  font-size: 20pt;
+  font-size: 15pt;
+  margin-bottom: 25px;
 `;
 
 const OrderWrapper = styled.div``;

@@ -15,20 +15,6 @@ const Order = ({ _id, customer, cardInfo, cart, status }) => {
     <>
       <Wrapper>
         <OrderStatusWrapper>
-          {/* received processing posted */}
-          {status.status.status === "received" && (
-            <OrderStatusReceived>
-              Order: {status.status.status}
-            </OrderStatusReceived>
-          )}
-          {status.status.status === "processing" && (
-            <OrderStatusProcessing>
-              Order: {status.status.status}
-            </OrderStatusProcessing>
-          )}
-          {status.status.status === "posted" && (
-            <OrderStatusPosted>Order: {status.status.status}</OrderStatusPosted>
-          )}
           <ChangeStatusWrapper>
             <StatusDescription>Change status:</StatusDescription>
             <StatusInput
@@ -46,7 +32,7 @@ const Order = ({ _id, customer, cardInfo, cart, status }) => {
                   .then((res) => res.json())
                   .then((data) => {
                     console.log(data);
-                    dispatch(updateOrderStatus(newOrder));
+                    window.location.reload();
                   });
               }}
             >
@@ -71,6 +57,15 @@ const Order = ({ _id, customer, cardInfo, cart, status }) => {
             </StatusInput>
           </ChangeStatusWrapper>
         </OrderStatusWrapper>
+        {status.status.status === "received" && (
+          <HeaderOrderReceived>Action required</HeaderOrderReceived>
+        )}
+        {status.status.status === "processing" && (
+          <HeaderOrderProcessing>Action required</HeaderOrderProcessing>
+        )}
+        {status.status.status === "posted" && (
+          <HeaderOrderPosted>Order fullfiled</HeaderOrderPosted>
+        )}
         <HeaderWrapper>
           <Header>Order ID:</Header>
           <HeaderId>{_id}</HeaderId>
@@ -165,16 +160,19 @@ const OrderStatusWrapper = styled.div`
   text-align: right;
 `;
 
-const OrderStatusReceived = styled.div`
+const HeaderOrderReceived = styled.div`
   color: red;
+  text-transform: uppercase;
 `;
 
-const OrderStatusProcessing = styled.div`
+const HeaderOrderProcessing = styled.div`
   color: orange;
+  text-transform: uppercase;
 `;
 
-const OrderStatusPosted = styled.div`
+const HeaderOrderPosted = styled.div`
   color: green;
+  text-transform: uppercase;
 `;
 
 const ChangeStatusWrapper = styled.div`
