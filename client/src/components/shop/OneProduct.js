@@ -97,39 +97,26 @@ const OneProduct = ({ ...product }) => {
 
   return (
     <>
-      <Wrapper>
-        <ImageWrapper
-          onClick={() => {
-            handleOpen();
-            dispatch(addProductBeforeAddToCartReset());
-            dispatch(addProductNameBeforeAddToCart(product.imageName));
-            dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
-            dispatch(addProductIdBeforeAddToCart(uuidv4()));
-          }}
-        >
-          <Img
-            src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg`}
-            srcset={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_256/${product.imageSrc}.jpg 256w,
+      <ImageWrapper
+        onClick={() => {
+          handleOpen();
+          dispatch(addProductBeforeAddToCartReset());
+          dispatch(addProductNameBeforeAddToCart(product.imageName));
+          dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
+          dispatch(addProductIdBeforeAddToCart(uuidv4()));
+        }}
+      >
+        <Img
+          src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1500/${product.imageSrc}.jpg`}
+          srcset={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_256/${product.imageSrc}.jpg 256w,
             https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_512/${product.imageSrc}.jpg 512w,
             https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_768/${product.imageSrc}.jpg 768w,
             https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1024/${product.imageSrc}.jpg 1024w,
-            https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w`}
-            alt={product.name}
-          />
-        </ImageWrapper>
-        {/* <AddToCart
-          onClick={() => {
-            handleOpen();
-            dispatch(addProductBeforeAddToCartReset());
-            dispatch(addProductNameBeforeAddToCart(product.imageName));
-            dispatch(addProductImageSrcBeforeAddToCart(product.imageSrc));
-            dispatch(addProductIdBeforeAddToCart(uuidv4()));
-          }}
-        >
-          Buy photo
-        </AddToCart> */}
-      </Wrapper>
-
+            https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w
+            https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1500/${product.imageSrc}.jpg 1500w`}
+          alt={product.name}
+        />
+      </ImageWrapper>
       {/* ----------------------Modal---------------------- */}
       <Modal
         aria-labelledby="transition-modal-title"
@@ -160,12 +147,13 @@ const OneProduct = ({ ...product }) => {
             </ModalTitle>
             <Main>
               <ImgModal
-                src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg`}
+                src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1500/${product.imageSrc}.jpg`}
                 srcset={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_256/${product.imageSrc}.jpg 256w,
                   https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_512/${product.imageSrc}.jpg 512w,
                   https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_768/${product.imageSrc}.jpg 768w,
                   https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1024/${product.imageSrc}.jpg 1024w,
-                  https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w`}
+                  https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1280/${product.imageSrc}.jpg 1280w
+                  https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_100,w_1500/${product.imageSrc}.jpg 1500w`}
                 alt={product.name}
               />
               <InfoWrapper>
@@ -301,12 +289,9 @@ const OneProduct = ({ ...product }) => {
   );
 };
 
-const Wrapper = styled.div`
-  margin-bottom: 16px;
-`;
-
 const ImageWrapper = styled.div`
   cursor: pointer;
+  margin-bottom: 16px;
 `;
 
 const Img = styled.img`

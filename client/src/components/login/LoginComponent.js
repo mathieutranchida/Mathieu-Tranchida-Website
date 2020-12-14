@@ -83,6 +83,8 @@ const LoginComponent = () => {
                     history.push("/admin/all-products");
                   } else {
                     handleOpen();
+                    setEmail("");
+                    setPassword("");
                   }
                 });
             }}
