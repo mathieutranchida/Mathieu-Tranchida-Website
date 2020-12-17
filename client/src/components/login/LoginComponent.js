@@ -82,9 +82,9 @@ const LoginComponent = () => {
                     localStorage.setItem("mtAuthenticated", true);
                     history.push("/admin/all-products");
                   } else {
-                    handleOpen();
                     setEmail("");
                     setPassword("");
+                    handleOpen();
                   }
                 });
             }}

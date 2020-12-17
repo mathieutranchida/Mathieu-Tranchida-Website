@@ -17,6 +17,11 @@ import OrderConfirmation from "./components/orderConfirmation/index";
 import OrderError from "./components/errorPages/OrderError";
 import NotAuth from "./components/errorPages/NotAuth";
 
+// Blog
+import Blog from "./components/blog";
+import Fswl from "./components/blog/fswl";
+import MontrealUrbanClimbing from "./components/blog/montrealUrbanClimbing";
+
 // Admin interface
 // Orders
 import AllOrders from "./components/admin/adminPages/orders/AllOrders";
@@ -71,6 +76,20 @@ const App = () => {
               <Route path="/not-authorised">
                 <Header />
                 <NotAuth />
+              </Route>
+
+              {/* --------------------BLOG------------------ */}
+              <Route exact path="/blog">
+                <Header />
+                <Blog />
+              </Route>
+              <Route path="/blog/from-switzerland-with-love">
+                <Header />
+                <Fswl />
+              </Route>
+              <Route path="/blog/montreal-urban-climbing">
+                <Header />
+                <MontrealUrbanClimbing />
               </Route>
 
               {/* --------------------AUTHENTICATION------------------ */}
