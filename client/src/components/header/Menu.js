@@ -39,8 +39,9 @@ const Menu = () => {
         <Nav>
           <LinkWrapper>
             <Link exact to="/">
-              Homepage
+              Home
             </Link>
+            <Link to="/blog">Blog</Link>
             <ContactWrapper>
               <ContactSmartphone />
             </ContactWrapper>
