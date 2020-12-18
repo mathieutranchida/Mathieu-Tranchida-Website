@@ -2,17 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-// function showDropdown(n) {
-//   const dropdownMenu = document.getElementsByClassName(`dropdown${n}`);
-//   for (let i = 0; i < dropdownMenu.length; i += 1) {
-//     if (dropdownMenu[0].style.display === "none") {
-//       dropdownMenu[0].style.display = "block";
-//     } else {
-//       dropdownMenu[0].style.display = "none";
-//     }
-//   }
-// }
-
 const SideBar = () => {
   return (
     <>
@@ -22,13 +11,7 @@ const SideBar = () => {
         </TitleWrapper>
         <Main>
           <DropdownWrapper>
-            <Button
-            // onClick={() => {
-            //   showDropdown(1);
-            // }}
-            >
-              Products
-            </Button>
+            <Button>Products</Button>
             <Dropdown className="dropdown1" style={{ display: "block" }}>
               <DropdownItem to="/admin/all-products">
                 See all products
@@ -37,15 +20,17 @@ const SideBar = () => {
             </Dropdown>
           </DropdownWrapper>
           <DropdownWrapper>
-            <Button
-            // onClick={() => {
-            //   showDropdown(4);
-            // }}
-            >
-              Orders
-            </Button>
+            <Button>Orders</Button>
             <Dropdown className="dropdown4" style={{ display: "block" }}>
               <DropdownItem to="/admin/all-orders">See all orders</DropdownItem>
+            </Dropdown>
+          </DropdownWrapper>
+          <DropdownWrapper>
+            <Button>Newsletter</Button>
+            <Dropdown className="dropdown4" style={{ display: "block" }}>
+              <DropdownItem to="/admin/newsletter-emails">
+                See all emails
+              </DropdownItem>
             </Dropdown>
           </DropdownWrapper>
         </Main>
