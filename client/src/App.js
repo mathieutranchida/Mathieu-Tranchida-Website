@@ -16,6 +16,7 @@ import Cart from "./components/cart/index";
 import OrderConfirmation from "./components/orderConfirmation/index";
 import OrderError from "./components/errorPages/OrderError";
 import NotAuth from "./components/errorPages/NotAuth";
+import AlreadyExists from "./components/errorPages/AlreadyExists";
 
 // Blog
 import Blog from "./components/blog";
@@ -28,6 +29,8 @@ import AllOrders from "./components/admin/adminPages/orders/AllOrders";
 // Products
 import AddProduct from "./components/admin/adminPages/products/AddProduct";
 import AllProducts from "./components/admin/adminPages/products/AllProducts";
+// Newsletter
+import AllEmails from "./components/admin/adminPages/newsletter/AllEmails";
 
 // Custom hook call imports
 import useFetchAllProducts from "./customHooks/useFetchAllProducts";
@@ -35,12 +38,14 @@ import useFetchPriceList from "./customHooks/useFetchPriceList";
 import useCartId from "./customHooks/useCartId";
 import useFetchAllOrders from "./customHooks/useFetchAllOrders";
 import ScrollToTop from "./customHooks/ScrollToTop";
+import useFetchNewsletter from "./customHooks/useFetchNewsletter";
 
 const App = () => {
   useFetchAllProducts();
   useFetchPriceList();
   useCartId();
   useFetchAllOrders();
+  useFetchNewsletter();
 
   return (
     <>
@@ -77,6 +82,10 @@ const App = () => {
                 <Header />
                 <NotAuth />
               </Route>
+              <Route path="/email-already-exists">
+                <Header />
+                <AlreadyExists />
+              </Route>
 
               {/* --------------------BLOG------------------ */}
               <Route exact path="/blog">
@@ -110,6 +119,12 @@ const App = () => {
               <ProtectedRoute
                 path="/admin/add-product"
                 component={AddProduct}
+              />
+
+              {/* -----------------------Emails------------------------- */}
+              <ProtectedRoute
+                path="/admin/newsletter-emails"
+                component={AllEmails}
               />
             </Switch>
             <Footer />

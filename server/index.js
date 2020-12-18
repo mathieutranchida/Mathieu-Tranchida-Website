@@ -39,6 +39,8 @@ const {
   changeOrderStatus,
 } = require("./apiRoutes/order");
 
+const { getEmails, addEmail, deleteEmail } = require("./apiRoutes/newsletter");
+
 const PORT = 4000;
 
 express()
@@ -122,6 +124,16 @@ express()
 
   // Login
   .post("/login", login)
+
+  // NEWSLETTER ENDPOINTS ----------------------------------------
+  // Get all emails
+  .get("/newsletter-email", getEmails)
+
+  // Post new email
+  .post("/newsletter-post-email", addEmail)
+
+  // Delete email
+  .delete("/newsletter-delete-email/:_id", deleteEmail)
 
   // STRIPE API --------------------------------------------------
   .post("/checkout", async (req, res) => {

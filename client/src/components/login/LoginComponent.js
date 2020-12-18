@@ -7,7 +7,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
-import { BiTrash, BiX } from "react-icons/bi";
+import { BiX } from "react-icons/bi";
 import COLORS from "../../constants";
 
 const useStyles = makeStyles((theme) => ({

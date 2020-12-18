@@ -247,3 +247,18 @@ export const updateOrderStatus = (order) => ({
   type: "UPDATE_ORDER_STATUS",
   order,
 });
+
+// NEWSLETTER -------------------------------------------
+// Get all emails
+export const requestAllEmails = () => ({
+  type: "REQUEST_NEWSLETTER_EMAIL_LIST",
+});
+
+export const receiveAllEmails = (emails) => ({
+  type: "RECEIVE_NEWSLETTER_EMAIL_LIST",
+  emails,
+});
+
+export const receiveAllEmailsError = () => ({
+  type: "RECEIVE_NEWSLETTER_EMAIL_LIST_ERROR",
+});

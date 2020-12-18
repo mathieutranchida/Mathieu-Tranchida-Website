@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import mtlUrbanClimbingCover from "../../assets/blog/mtlUrbanClimbing/coverIndex.jpeg";
 import fswlCover from "../../assets/blog/fswl/coverIndex.jpeg";
+import Newsletter from "./Newsletter";
 
 const Blog = () => {
   const history = useHistory();
@@ -31,6 +32,7 @@ const Blog = () => {
               <ArticleTitle>From Switzerland With Love</ArticleTitle>
             </Overlay>
           </ArticleWrapperFswl>
+          <Newsletter />
         </Main>
       </Wrapper>
     </>

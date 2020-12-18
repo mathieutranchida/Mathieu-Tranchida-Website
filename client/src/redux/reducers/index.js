@@ -8,6 +8,7 @@ import productBeforeAddToCartReducer from "./productBeforeAddToCartReducer";
 import cartReducer from "./cartReducer";
 import orderConfirmationReducer from "./orderConfirmationReducer";
 import allOrdersReducer from "./allOrdersReducer";
+import newsletterReducer from "./newsletterReducer";
 
 export default combineReducers({
   createUserReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   cartReducer,
   orderConfirmationReducer,
   allOrdersReducer,
+  newsletterReducer,
 });

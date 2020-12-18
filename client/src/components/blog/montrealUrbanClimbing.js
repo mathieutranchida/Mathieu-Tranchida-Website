@@ -1,15 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
+import ScrollToTop from "./ScrollToTop";
+import OtherReads from "./OtherReads";
 
 const MontrealUrbanClimbing = () => {
+  const history = useHistory();
+
   return (
     <>
+      <ScrollToTop />
       <Wrapper>
         <Main>
           <Header>Montreal's Urban Climbing</Header>
           <Author>
             Written by Antoine Clement - Published in Gripped Magazine
           </Author>
+          <Author>October 1st, 2020 </Author>
           <Story>
             <Section>Part One: Introduction</Section>
             <Paragraph>
@@ -70,6 +78,7 @@ const MontrealUrbanClimbing = () => {
               also take part in this exploration.
             </Paragraph>
             <Section>Part Two: The Olympic Park</Section>
+
             <Paragraph>
               As it often does, it all started with a boulder: The OnSite rocks
               at the Montreal Olympic Stadium. When lockdown restrictions eased
@@ -83,6 +92,10 @@ const MontrealUrbanClimbing = () => {
               shot, however, Mathieu foresaw his surroundings with a climbing
               vision and a craving to hunt new unexplored urban climbing sites.
             </Paragraph>
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_80,w_500/lnq5g2pxomssvov0jvfv.jpg`}
+              alt="Bea climbing the OnSite boulder"
+            />
             <Paragraph>
               After careful planning, they decided to reach the OnSite boulder
               for sunrise. Burdened with heavy equipment, the duo slowly biked
@@ -116,11 +129,16 @@ const MontrealUrbanClimbing = () => {
               year. I love this shot because the background is unique, the
               colors look beautiful and Bea’s position is perfect.”
             </Quote>
+
             <Paragraph>
               What ensued was a series of photoshoots around the park, each time
               searching for a different way to blend the urban environment with
               the climbs.
             </Paragraph>
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_80,w_500/kuqxlzjvqigymm0gcdwj.jpg`}
+              alt="Bea traversiving across the wall"
+            />
             <Paragraph>
               Capturing the traverse across a steep wall of an alleyway
               illuminated the duo’s creativity. With a series of thin pinches
@@ -146,6 +164,11 @@ const MontrealUrbanClimbing = () => {
               captured Bea’s elegance as a climber while also grasping the
               minimal look of their environment.
             </Paragraph>
+
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_70,w_1500/vxujkezqnihdy6mcv6dh.jpg`}
+              alt="Bea climbing the olympic stadium"
+            />
             <Paragraph>
               On a late August evening, the pair were able to capture a unique
               moment. Originally scheduled for earlier in the summer, this
@@ -175,6 +198,7 @@ const MontrealUrbanClimbing = () => {
               impact of COVID on the community, this photo grasps the essence of
               this summer of climbing in Montreal.
             </Paragraph>
+
             <Section>Part Three: Mixing aesthetics and climbing</Section>
             <Paragraph>
               After exploring the Olympic Stadium, Mathieu and Bea craved for
@@ -191,6 +215,10 @@ const MontrealUrbanClimbing = () => {
               pandemic. Mathieu decided to take Bea and begin a series of shoots
               in the area.
             </Paragraph>
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_70,w_1500/g9tajm435onxn08s8zwx.jpg`}
+              alt="Bea on the old port bridge"
+            />
             <Paragraph>
               As Mathieu detailed, the bridge presented a few obstacles:
             </Paragraph>
@@ -222,6 +250,10 @@ const MontrealUrbanClimbing = () => {
               It was hilarious to witness their reactions - a perfect mix of
               confusion and amazement.”
             </Quote>
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_70,w_1500/q42ui2zbisqbgkimxfpq.jpg`}
+              alt="Bea on the Lachine Canal bridge"
+            />
             <Paragraph>
               Continuing on their quest for urban exploration, the pair took on
               another bridge. Drawn by the structure's aesthetics and colors,
@@ -257,6 +289,10 @@ const MontrealUrbanClimbing = () => {
               my side - searching for urban boulders/projects - and Mathieu’s
               side - searching for stunning locations while featuring climbing.”
             </Quote>
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_70,w_1500/cakdz3djga4ijsis8mze.jpg`}
+              alt="Bea on the sunset old port bridge"
+            />
             <Paragraph>
               Continuing on this path, a new bridge photo shoot at sunset
               created a special atmosphere. With orange-gold and hues of pink
@@ -296,6 +332,10 @@ const MontrealUrbanClimbing = () => {
               - I hope not because that would have been very stressful to
               watch/photograph.”
             </Quote>
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_70,w_1500/g9ntwnflcyjsrwqj5hgl.jpg`}
+              alt="Bea climbing old port building"
+            />
             <Paragraph>
               The last shoot of the Old Port series took place on the facade of
               a building on the corner of Recollets and Saint-Helene. Thrilled
@@ -314,6 +354,10 @@ const MontrealUrbanClimbing = () => {
               will continue to embrace.
             </Paragraph>
             <Section>Part Four: Kaleb's Boulder</Section>
+            <Img
+              src={`https://res.cloudinary.com/dldqebddc/image/upload/f_auto,q_70,w_1500/rcmpvyqe354tdyudzdf1.jpg`}
+              alt="Kaleb's boulder"
+            />
             <Paragraph>
               After exploring the city together, Mathieu and Bea wanted to share
               their experiences and learn from others in the climbing community.
@@ -343,6 +387,7 @@ const MontrealUrbanClimbing = () => {
             </Paragraph>
           </Story>
         </Main>
+        <OtherReads />
       </Wrapper>
     </>
   );
@@ -352,14 +397,16 @@ const Wrapper = styled.div`
   min-height: calc(100vh - 100px);
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Main = styled.div`
   max-width: 1000px;
-  margin: 100px 0px 80px 0px;
+  margin: 100px 25px 20px 25px;
   width: 100%;
   @media (max-width: 1025px) {
-    margin: 80px 0px 80px 0px;
+    margin: 80px 25px 20px 25px;
   }
 `;
 
@@ -381,20 +428,50 @@ const Story = styled.div`
 `;
 
 const Section = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14pt;
-  margin-bottom: 5px;
-  margin-top: 50px;
+  margin-bottom: 15px;
+  margin-top: 40px;
 `;
 
 const Paragraph = styled.div`
   text-align: justify;
-  text-indent: 50px;
   margin-bottom: 15px;
+  font-weight: 300;
+  text-indent: 50px;
 `;
 
 const Quote = styled.div`
   font-style: italic;
+  margin-bottom: 15px;
+  text-align: justify;
+  font-weight: 300;
+  text-indent: 50px;
+`;
+
+const Img = styled.img`
+  height: 100%;
+  width: 100%;
+  max-height: 500px;
+  max-width: 100vw;
+  object-fit: contain;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  user-select: none;
+`;
+
+const Button = styled.button`
+  background-color: transparent;
+  border: black 1px solid;
+  color: black;
+  font-family: halyard-display, sans-serif;
+  font-size: 11pt;
+  font-weight: 400;
+  padding: 8px 20px;
+  cursor: pointer;
+  text-align: center;
+  float: center;
+  margin-bottom: 25px;
 `;
 
 export default MontrealUrbanClimbing;
