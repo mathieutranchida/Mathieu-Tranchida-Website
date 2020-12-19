@@ -1,38 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import IconButton from "@material-ui/core/IconButton";
 
-const ScrollToTop = () => {
-  const myButton = document.getElementById("backToTop");
-  window.onscroll = function () {
-    scrollFunction();
-  };
-  function scrollFunction() {
-    if (
-      myButton &&
-      (document.body.scrollTop > 1000 ||
-        document.documentElement.scrollTop > 1000)
-    ) {
-      myButton.style.display = "block";
+const useStyles = makeStyles((theme) => ({
+  toTop: {
+    zIndex: 100,
+    position: "fixed",
+    bottom: "25px",
+    right: "25px",
+    backgroundColor: "black",
+    color: "white",
+    "&:hover, &.Mui-focusVisible": {
+      transition: "0.3s",
+      color: "black",
+      backgroundColor: "#grey",
+    },
+  },
+}));
+
+const ScrollToTop = ({ showBelow }) => {
+  const [show, setShow] = useState(showBelow ? false : true);
+
+  const classes = useStyles();
+
+  const handleScroll = () => {
+    if (window.pageYOffset > showBelow) {
+      if (!show) setShow(true);
     } else {
-      myButton.style.display = "none";
+      if (show) setShow(false);
     }
-  }
+  };
 
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+  useEffect(() => {
+    if (showBelow) {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  });
 
+  const handleClick = () => {
+    window["scrollTo"]({ top: 0, behavior: "smooth" });
+  };
   return (
     <>
-      <Button
-        id="backToTop"
-        onClick={() => {
-          topFunction();
-        }}
-      >
-        Back to top
-      </Button>
+      {show && (
+        <IconButton
+          onClick={() => {
+            handleClick();
+          }}
+          className={classes.toTop}
+        >
+          <ExpandLessIcon />
+        </IconButton>
+      )}
     </>
   );
 };
