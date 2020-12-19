@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Checkout from "./Checkout";
+import { cartUpdateAfterChange } from "../../redux/actions";
 
 const CartSummary = () => {
+  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cartReducer);
   let roundedGst = Math.round(cart.gst * 100) / 100;
   let roundedQst = Math.round(cart.qst * 100) / 100;
@@ -19,6 +22,7 @@ const CartSummary = () => {
       Math.round((newCart.totalPriceAfterTax + newCart.shippingCost) * 100) /
       100;
     console.log(newCart);
+    dispatch(cartUpdateAfterChange(newCart));
     fetch(`/modify-cart/${newCart._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -26,7 +30,7 @@ const CartSummary = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        document.location.reload();
+        console.log(data);
       });
   };
 

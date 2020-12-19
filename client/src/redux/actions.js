@@ -162,29 +162,10 @@ export const cartAddProduct = (product) => ({
   product,
 });
 
-// export const cartRemoveProduct = (product) => ({
-//   type: "CART_REMOVE_PRODUCT",
-//   product,
-// });
-
-// export const cartUpdateProductQuantity = (product, quantity) => {
-//   console.log(product, quantity);
-//   return {
-//     type: "CART_UPDATE_PRODUCT_QUANTITY",
-//     product,
-//     quantity,
-//   };
-// };
-
-// export const cartUpdateShippingOption = (shippingOption) => ({
-//   type: "CART_UPDATE_SHIPPING_OPTION",
-//   shippingOption,
-// });
-
-// export const cartUpdateShippingCost = (shippingCost) => ({
-//   type: "CART_UPDATE_SHIPPING_COST",
-//   shippingCost,
-// });
+export const cartUpdateAfterChange = (data) => ({
+  type: "CART_UPDATE_AFTER_CHANGE",
+  data,
+});
 
 export const cartUpdateTotalFinal = (cartTotalFinal) => ({
   type: "CART_UPDATE_TOTAL_FINAL",

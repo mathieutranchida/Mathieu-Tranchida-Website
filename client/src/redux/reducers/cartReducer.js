@@ -43,75 +43,21 @@ export default function cartReducer(state = initialState, action) {
         ) / 100;
       return newState;
     }
-    // case "CART_REMOVE_PRODUCT": {
-    //   console.log(newState);
-    //   const index = newState.products.findIndex((product) => {
-    //     console.log(product);
-    //     return product._id === action.product;
-    //   });
-    //   console.log(action, index);
-    //   if (index !== -1) {
-    //   newState.totalAmountOfProducts =
-    //     newState.totalAmountOfProducts - newState.products[index].quantity;
-    //   newState.totalPriceBeforeTax =
-    //     newState.totalPriceBeforeTax -
-    //     newState.products[index].quantity * newState.products[index].price;
-    //   newState.gst = newState.totalPriceBeforeTax * 0.05;
-    //   newState.qst = newState.totalPriceBeforeTax * 0.09975;
-    //   newState.totalPriceAfterTax =
-    //     newState.totalPriceBeforeTax + newState.gst + newState.qst;
-    //   newState.cartTotalFinal =
-    //     Math.round(
-    //       (newState.totalPriceAfterTax + newState.shippingCost) * 100
-    //     ) / 100;
-    //   newState.products.splice(index, 1);
-    //   return {
-    //     ...newState,
-    //     products: [...newState.products],
-    //     };
-    //   };
-    // }
-    // case "CART_UPDATE_PRODUCT_QUANTITY": {
-    //   const index = newState.products.findIndex(
-    //     (product) => product._id === action.product._id
-    //   );
-    //   if (index !== -1) {
-    //     newState.totalAmountOfProducts =
-    //       newState.totalAmountOfProducts - newState.products[index].quantity;
-    //     newState.totalPriceBeforeTax =
-    //       newState.totalPriceBeforeTax -
-    //       newState.products[index].quantity * newState.products[index].price;
-    //     newState.products[index].quantity = parseFloat(action.quantity);
-    //     newState.totalAmountOfProducts =
-    //       newState.totalAmountOfProducts + newState.products[index].quantity;
-    //     newState.totalPriceBeforeTax =
-    //       newState.totalPriceBeforeTax +
-    //       newState.products[index].quantity * newState.products[index].price;
-    //     newState.gst = newState.totalPriceBeforeTax * 0.05;
-    //     newState.qst = newState.totalPriceBeforeTax * 0.09975;
-    //     newState.totalPriceAfterTax =
-    //       newState.totalPriceBeforeTax + newState.gst + newState.qst;
-    //     newState.cartTotalFinal =
-    //       Math.round(
-    //         (newState.totalPriceAfterTax + newState.shippingCost) * 100
-    //       ) / 100;
-    //   }
-    //   return newState;
-    // }
-    // case "CART_UPDATE_SHIPPING_OPTION": {
-    //   return {
-    //     ...state,
-    //     shippingOption: action.shippingOption,
-    //   };
-    // }
-    // case "CART_UPDATE_SHIPPING_COST": {
-    //   newState.shippingCost = parseFloat(action.shippingCost);
-    //   newState.cartTotalFinal =
-    //     Math.round(
-    //       (newState.totalPriceAfterTax + newState.shippingCost) * 100
-    //     ) / 100;
-    //   return newState;
-    // }
+    case "CART_UPDATE_AFTER_CHANGE": {
+      return {
+        ...state,
+        _id: action.data._id,
+        products: action.data.products,
+        totalAmountOfProducts: action.data.totalAmountOfProducts,
+        totalPriceBeforeTax: action.data.totalPriceBeforeTax,
+        gst: action.data.gst,
+        qst: action.data.qst,
+        totalPriceAfterTax: action.data.totalPriceAfterTax,
+        shippingOption: action.data.shippingOption,
+        shippingCost: action.data.shippingCost,
+        cartTotalFinal: action.data.cartTotalFinal,
+      };
+    }
     case "CART_UPDATE_TOTAL_FINAL": {
       return {
         ...state,

@@ -7,7 +7,7 @@ const SideBar = () => {
     <>
       <Wrapper>
         <TitleWrapper>
-          <Title to="/admin">Admin Portal</Title>
+          <Title to="/admin/all-products">Admin Portal</Title>
         </TitleWrapper>
         <Main>
           <DropdownWrapper>

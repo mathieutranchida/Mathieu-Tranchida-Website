@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Image, Transformation } from "cloudinary-react";
+
+import { cartUpdateAfterChange } from "../../redux/actions";
 
 const CartProducts = () => {
   const cart = useSelector((state) => state.cartReducer);
+
+  const dispatch = useDispatch();
 
   const removeFromCart = (productId) => {
     let newCart = { ...cart };
@@ -25,6 +29,7 @@ const CartProducts = () => {
         Math.round((newCart.totalPriceAfterTax + newCart.shippingCost) * 100) /
         100;
       newCart.products.splice(index, 1);
+      dispatch(cartUpdateAfterChange(newCart));
       fetch(`/modify-cart/${newCart._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -33,7 +38,6 @@ const CartProducts = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          document.location.reload();
         });
     }
   };
@@ -62,6 +66,7 @@ const CartProducts = () => {
       newCart.cartTotalFinal =
         Math.round((newCart.totalPriceAfterTax + newCart.shippingCost) * 100) /
         100;
+      dispatch(cartUpdateAfterChange(newCart));
       fetch(`/modify-cart/${newCart._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -70,7 +75,6 @@ const CartProducts = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          document.location.reload();
         });
     }
   };
