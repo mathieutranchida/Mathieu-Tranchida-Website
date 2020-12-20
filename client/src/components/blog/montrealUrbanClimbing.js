@@ -10,7 +10,7 @@ const MontrealUrbanClimbing = () => {
 
   return (
     <>
-      <ScrollToTop />
+      <ScrollToTop showBelow={500} />
       <Wrapper>
         <Main>
           <Header>Montreal's Urban Climbing</Header>

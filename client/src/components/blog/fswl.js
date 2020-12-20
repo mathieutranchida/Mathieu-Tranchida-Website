@@ -7,7 +7,7 @@ import ScrollToTop from "./ScrollToTop";
 const Fswl = () => {
   return (
     <>
-      <ScrollToTop />
+      <ScrollToTop showBelow={500} />
       <Wrapper>
         <Main>
           <Header>From Switzerland with Love</Header>
