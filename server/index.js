@@ -95,7 +95,7 @@ express()
   // Add, modify, and delete a product in the cart
   .put("/modify-cart/:_id", modifyCart)
 
-  // Delete product from the cart
+  // Delete a cart by its id
   .delete("/delete-cart/:_id", deleteCart)
 
   // PRICE LIST ENDPOINTS ---------------------------------------
