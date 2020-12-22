@@ -125,7 +125,4 @@ const login = async (req, res) => {
   }
 };
 
-// Verify user
-const verifyUser = async (req, res) => {};
-
 module.exports = { getAllUsers, login, signUp };
