@@ -7,4 +7,17 @@ const checkIfDataExists = (data, name) => {
   return true;
 };
 
-module.exports = { checkIfDataExists };
+// Verify user
+const verifyToken = (req, res, next) => {
+  const bearerHeader = req.headers["authorisation"];
+  if (typeof bearerHeader !== "undefined") {
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+};
+
+module.exports = { checkIfDataExists, verifyToken };
